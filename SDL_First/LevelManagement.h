@@ -51,7 +51,7 @@ class Level {
 	int CellId = 0;
 
 	gameObject Block;
-	gameObject Line;
+	Transform Line;
 
 //####################
 //Function definitions
@@ -81,38 +81,38 @@ void InitLevel(Level& level) {
 
 					if (CellId - 1 >= 0 && level.TileMap[CellId - 1] == 0 || CellId % level.Resolution.x == 0) {
 	
-						Line.transform.size.x = 1;
-						Line.transform.size.y = Block.transform.size.y;
-						Line.transform.position = Block.transform.position;
-						GoArray.Add(Line);
+						Line.size.x = 1;
+						Line.size.y = Block.transform.size.y;
+						Line.position = Block.transform.position;
+						TrArray.Add(Line);
 	
 					}
 
 					if (level.TileMap[CellId + 1] == 0 || CellId % (level.Resolution.x - 1) == 0 && CellId != 0) {
 
-						Line.transform.size.x = 1;
-						Line.transform.size.y = Block.transform.size.y;
-						Line.transform.position.x = Block.transform.position.x;
-						Line.transform.position.x = Block.transform.position.x + Block.transform.size.x;
-						GoArray.Add(Line);
+						Line.size.x = 1;
+						Line.size.y = Block.transform.size.y;
+						Line.position.x = Block.transform.position.x;
+						Line.position.x = Block.transform.position.x + Block.transform.size.x;
+						TrArray.Add(Line);
 
 					}
 
 					if (CellId - level.Resolution.x > 0 && level.TileMap[CellId - level.Resolution.x] == 0) {
 
-						Line.transform.size.y = 1;
-						Line.transform.size.x = Block.transform.size.x;
-						Line.transform.position = Block.transform.position;
-						GoArray.Add(Line);
+						Line.size.y = 1;
+						Line.size.x = Block.transform.size.x;
+						Line.position = Block.transform.position;
+						TrArray.Add(Line);
 
 					}
 
 					if (CellId + level.Resolution.x < level.Resolution.x * level.Resolution.y && level.TileMap[CellId + level.Resolution.x] == 0) {
 
-						Line.transform.size.y = 1;
-						Line.transform.size.x = Block.transform.size.x;
-						Line.transform.position.y = Block.transform.position.y + Block.transform.size.y;
-						GoArray.Add(Line);
+						Line.size.y = 1;
+						Line.size.x = Block.transform.size.x;
+						Line.position.y = Block.transform.position.y + Block.transform.size.y;
+						TrArray.Add(Line);
 
 					}
 

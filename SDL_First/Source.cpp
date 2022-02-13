@@ -11,7 +11,7 @@ const size_t frameDelay = 17; // 60 fps
 size_t frameStart;
 size_t frameTime;
 
-SDL_Event event;
+SDL_Event* event = new SDL_Event;
 
 gameObject Player;
 
@@ -148,10 +148,10 @@ void Update() {
 		SDL_RenderPresent(renderer);
 
 		//Take SDL input
-		while (SDL_PollEvent(&event)) {
+		while (SDL_PollEvent(event)) {
 					
-			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE ||
-				event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE) {
+			if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_ESCAPE ||
+				event->type == SDL_WINDOWEVENT && event->window.event == SDL_WINDOWEVENT_CLOSE) {
 
 				Game_runnig = false;
 				Debug("Quitting...");

@@ -53,7 +53,7 @@ class gameObject {
 
 };
 
-DyArray<gameObject> GoArray;
+DyArray<Transform> TrArray;
 
 //####################
 //Function definitions
