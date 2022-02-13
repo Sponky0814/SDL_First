@@ -149,39 +149,15 @@ void Update() {
 
 		//Take SDL input
 		while (SDL_PollEvent(&event)) {
+					
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE ||
+				event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE) {
 
-			switch (event.type) {
-
-				case SDL_KEYDOWN:
-					switch (event.key.keysym.sym) {
-
-						case SDLK_ESCAPE:
-
-							Game_runnig = false;
-							Debug("Quitting...");
-
-						default:
-							break;
-					}
-
-				case SDL_WINDOWEVENT:
-					switch (event.window.event) {
-
-						case SDL_WINDOWEVENT_CLOSE:
-							
-							Game_runnig = false;
-							Debug("Quitting...");
-								break;
-
-						default:
-							break;
-
-					}
-
-				default:
-					break;
+				Game_runnig = false;
+				Debug("Quitting...");
 
 			}
+
 		}
 
 	}
@@ -207,9 +183,6 @@ int main(int argc, char* argv[]) {
 	InitLevel(Level1);
 
 	Update();
-
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
 
 	Debug("Quit");
 
