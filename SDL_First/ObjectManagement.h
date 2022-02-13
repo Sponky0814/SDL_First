@@ -112,46 +112,42 @@ float* GetBorders(gameObject tempObject) {
 
 }
 
-void CheckCollision(gameObject* Obj) {
-
-	gameObject tempObject = *Obj;
+void CheckCollision(gameObject& Obj) {
 
 	static float MainBorders[3]{};
 
 	for (int i = 0; i < 4; i++) {
 
 		if (i == 0 || i == 2)
-			MainBorders[i] = GetBorders(tempObject)[i] - 1;
+			MainBorders[i] = GetBorders(Obj)[i] - 1;
 		else
-			MainBorders[i] = GetBorders(tempObject)[i] + 1;
+			MainBorders[i] = GetBorders(Obj)[i] + 1;
 
 	}
 
-	if (MainBorders[2] > Screen.h - tempObject.transform.size.y)
-		tempObject.collider.b = true;
+	if (MainBorders[2] > Screen.h - Obj.transform.size.y)
+		Obj.collider.b = true;
 	else
-		tempObject.collider.b = false;
+		Obj.collider.b = false;
 
 	if (MainBorders[0] < 0) {
 
-		tempObject.collider.a = true;
+		Obj.collider.a = true;
 
-		tempObject.transform.position.x = 0;
+		Obj.transform.position.x = 0;
 
 	}
 	else
-		tempObject.collider.a = false;
+		Obj.collider.a = false;
 
 	if (MainBorders[1] > Screen.w) {
 
-		tempObject.collider.c = true;
+		Obj.collider.c = true;
 
-		tempObject.transform.position.x = Screen.w - tempObject.transform.size.x;
+		Obj.transform.position.x = Screen.w - Obj.transform.size.x;
 
 	}
 	else
-		tempObject.collider.c = false;
-
-	*Obj = tempObject;
+		Obj.collider.c = false;
 
 }
