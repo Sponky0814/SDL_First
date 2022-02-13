@@ -71,56 +71,53 @@ void InitLevel(Level& level) {
 
 			Block.transform.position.x = Block.transform.size.x * column;
 
-			switch (level.TileMap[CellId]) {
+			if (level.TileMap[CellId] == 1) {
 
-				case 0:
-					break;
+				level.CellArray.Add(Cell(1, Block.transform));
 
-				case 1:
-					level.CellArray.Add(Cell(1, Block.transform));
-
-					if (CellId - 1 >= 0 && level.TileMap[CellId - 1] == 0 || CellId % level.Resolution.x == 0) {
+				if (CellId - 1 >= 0 && level.TileMap[CellId - 1] == 0 || CellId % level.Resolution.x == 0) {
 	
-						Line.size.x = 1;
-						Line.size.y = Block.transform.size.y;
-						Line.position = Block.transform.position;
-						TrArray.Add(Line);
+					Line.size.x = 1;
+					Line.size.y = Block.transform.size.y;
+					Line.position = Block.transform.position;
+					TrArray.Add(Line);
 	
-					}
+				}
 
-					if (level.TileMap[CellId + 1] == 0 || CellId % (level.Resolution.x - 1) == 0 && CellId != 0) {
+				if (level.TileMap[CellId + 1] == 0 || CellId % (level.Resolution.x - 1) == 0 && CellId != 0) {
 
-						Line.size.x = 1;
-						Line.size.y = Block.transform.size.y;
-						Line.position.x = Block.transform.position.x;
-						Line.position.x = Block.transform.position.x + Block.transform.size.x;
-						TrArray.Add(Line);
+					Line.size.x = 1;
+					Line.size.y = Block.transform.size.y;
+					Line.position.x = Block.transform.position.x;
+					Line.position.x = Block.transform.position.x + Block.transform.size.x;
+					TrArray.Add(Line);
 
-					}
+				}
 
-					if (CellId - level.Resolution.x > 0 && level.TileMap[CellId - level.Resolution.x] == 0) {
+				if (CellId - level.Resolution.x > 0 && level.TileMap[CellId - level.Resolution.x] == 0) {
 
-						Line.size.y = 1;
-						Line.size.x = Block.transform.size.x;
-						Line.position = Block.transform.position;
-						TrArray.Add(Line);
+					Line.size.y = 1;
+					Line.size.x = Block.transform.size.x;
+					Line.position = Block.transform.position;
+					TrArray.Add(Line);
 
-					}
+				}
 
-					if (CellId + level.Resolution.x < level.Resolution.x * level.Resolution.y && level.TileMap[CellId + level.Resolution.x] == 0) {
+				if (CellId + level.Resolution.x < level.Resolution.x * level.Resolution.y &&
+					level.TileMap[CellId + level.Resolution.x] == 0) {
 
-						Line.size.y = 1;
-						Line.size.x = Block.transform.size.x;
-						Line.position.y = Block.transform.position.y + Block.transform.size.y;
-						TrArray.Add(Line);
+					Line.size.y = 1;
+					Line.size.x = Block.transform.size.x;
+					Line.position.y = Block.transform.position.y + Block.transform.size.y;
+					TrArray.Add(Line);
 
-					}
+				}
 
-					break;
+			} 
+			else {
 
-				default:
-					Error("Illegal Cell type!");
-					break;
+				Error("Illegal Cell type!");
+				break;
 
 			}
 
