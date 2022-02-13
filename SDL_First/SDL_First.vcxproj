@@ -154,9 +154,6 @@
     <ClInclude Include="Mmath.h" />
     <ClInclude Include="ObjectManagement.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
