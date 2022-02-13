@@ -141,11 +141,11 @@ void Update() {
 		Player.transform.position.y += (int)Player.rigidBody.velocity.y * 2;
 
 		//Renders texure on screen
+		SDL_RenderClear(renderer);
 		CheckCollision(Player);
 		Draw(Player);
 		DrawLevel(Level1);
 		SDL_RenderPresent(renderer);
-		SDL_RenderClear(renderer);
 
 		//Take SDL input
 		while (SDL_PollEvent(&event)) {
@@ -204,7 +204,7 @@ int main(int argc, char* argv[]) {
 	Player.transform.position = { 487, 952 };
 	Player.texture = LoadTexture("Lukanguz.png");
 
-	InisializeLevel(&Level1);
+	InitLevel(Level1);
 
 	Update();
 

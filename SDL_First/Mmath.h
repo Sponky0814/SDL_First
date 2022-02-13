@@ -4,7 +4,7 @@
 
 SDL_Rect Screen = {0, 0, 1920, 1080};
 
-//Create window and renderer
+//Init window and renderer
 SDL_Window* window = SDL_CreateWindow("Muon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Screen.w, Screen.h, SDL_WINDOW_SHOWN);
 SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 

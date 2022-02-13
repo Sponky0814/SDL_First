@@ -102,7 +102,7 @@ void Draw(gameObject gO) {
 
 float* GetBorders(gameObject tempObject) {
 
-	static float ColZone[4]{};
+	float ColZone[4]{};
 	ColZone[0] = (float)tempObject.transform.position.x;
 	ColZone[1] = (float)tempObject.transform.position.x + tempObject.transform.size.x;
 	ColZone[2] = (float)tempObject.transform.position.y;
