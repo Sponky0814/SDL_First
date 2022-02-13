@@ -75,7 +75,8 @@ void InitLevel(Level& level) {
 
 				level.CellArray.Add(Cell(1, Block.transform));
 
-				if (CellId - 1 >= 0 && level.TileMap[CellId - 1] == 0 || CellId % level.Resolution.x == 0) {
+				if (CellId - 1 >= 0 && level.TileMap[CellId - 1] == 0 ||
+					CellId % level.Resolution.x == 0) {
 	
 					Line.size.x = 1;
 					Line.size.y = Block.transform.size.y;
@@ -84,7 +85,8 @@ void InitLevel(Level& level) {
 	
 				}
 
-				if (level.TileMap[CellId + 1] == 0 || CellId % (level.Resolution.x - 1) == 0 && CellId != 0) {
+				if (level.TileMap[CellId + 1] == 0 ||
+					CellId % (level.Resolution.x - 1) == 0 && CellId != 0) {
 
 					Line.size.x = 1;
 					Line.size.y = Block.transform.size.y;
@@ -94,7 +96,8 @@ void InitLevel(Level& level) {
 
 				}
 
-				if (CellId - level.Resolution.x > 0 && level.TileMap[CellId - level.Resolution.x] == 0) {
+				if (CellId - level.Resolution.x > 0 &&
+					level.TileMap[CellId - level.Resolution.x] == 0) {
 
 					Line.size.y = 1;
 					Line.size.x = Block.transform.size.x;
@@ -114,7 +117,7 @@ void InitLevel(Level& level) {
 				}
 
 			} 
-			else {
+			else if (level.TileMap[CellId] != 0) {
 
 				Error("Illegal Cell type!");
 				break;
