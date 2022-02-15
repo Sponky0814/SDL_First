@@ -28,7 +28,7 @@ class Level {
 		Level() {
 			
 			crystal.name = "Crystal";
-			crystal.texture = LoadTexture("Rock.png");
+			crystal.texture = LoadTexture("Images/Rock.png");
 			crystal.transform.size = { 60, 60 };
 
 		}
@@ -39,7 +39,7 @@ class Level {
 			TileMap = tM; Resolution = r;
 
 			crystal.name = "Crystal";
-			crystal.texture = LoadTexture("Rock.png");
+			crystal.texture = LoadTexture("Images/Rock.png");
 			crystal.transform.size = { 60, 60 };
 
 		}

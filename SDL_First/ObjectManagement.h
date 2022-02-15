@@ -116,7 +116,7 @@ float* GetBorders(gameObject tempObject) {
 
 void CheckCollision(gameObject& Obj) {
 
-	static float MainBorders[3]{};
+    float MainBorders[3]{};
 
 	for (int i = 0; i < 4; i++) {
 
@@ -151,5 +151,7 @@ void CheckCollision(gameObject& Obj) {
 	}
 	else
 		Obj.collider.c = false;
+
+
 
 }

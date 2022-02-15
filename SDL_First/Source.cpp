@@ -178,7 +178,7 @@ int main(int argc, char* argv[]) {
 
 	Player.transform.size = { 96, 96 };
 	Player.transform.position = { 487, 952 };
-	Player.texture = LoadTexture("Lukanguz.png");
+	Player.texture = LoadTexture("Images/Lukanguz.png");
 
 	InitLevel(Level1);
 
