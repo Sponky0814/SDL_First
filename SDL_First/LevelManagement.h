@@ -1,7 +1,5 @@
 #pragma once
-#include "Mmath.h"
-#include "ObjectManagement.h"
-#include "Log.h"
+#include <Muon.h>
 
 extern SDL_Renderer* renderer;
 
@@ -75,6 +73,7 @@ void InitLevel(Level& level) {
 
 				level.CellArray.Add(Cell(1, Block.transform));
 
+				//LEFT
 				if (CellId - 1 >= 0 && level.TileMap[CellId - 1] == 0 ||
 					CellId % level.Resolution.x == 0) {
 	
@@ -85,6 +84,7 @@ void InitLevel(Level& level) {
 	
 				}
 
+				//RIGHT
 				if (level.TileMap[CellId + 1] == 0 ||
 					CellId % (level.Resolution.x - 1) == 0 && CellId != 0) {
 
@@ -96,6 +96,7 @@ void InitLevel(Level& level) {
 
 				}
 
+				//ABOVE
 				if (CellId - level.Resolution.x > 0 &&
 					level.TileMap[CellId - level.Resolution.x] == 0) {
 
@@ -106,6 +107,7 @@ void InitLevel(Level& level) {
 
 				}
 
+				//BELOW
 				if (CellId + level.Resolution.x < level.Resolution.x * level.Resolution.y &&
 					level.TileMap[CellId + level.Resolution.x] == 0) {
 
@@ -117,7 +119,7 @@ void InitLevel(Level& level) {
 				}
 
 			} 
-			else if (level.TileMap[CellId] != 0) {
+			elif (level.TileMap[CellId] != 0) {
 
 				Error("Illegal Cell type!");
 				break;

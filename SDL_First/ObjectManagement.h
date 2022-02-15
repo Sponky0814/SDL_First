@@ -55,6 +55,8 @@ class gameObject {
 
 DyArray<Transform> TrArray;
 
+DyArray<Transform> BlockMap[128];
+
 //####################
 //Function definitions
 //####################
@@ -102,7 +104,7 @@ void Draw(gameObject gO) {
 
 float* GetBorders(gameObject tempObject) {
 
-	float ColZone[4]{};
+	static float ColZone[4]{};
 	ColZone[0] = (float)tempObject.transform.position.x;
 	ColZone[1] = (float)tempObject.transform.position.x + tempObject.transform.size.x;
 	ColZone[2] = (float)tempObject.transform.position.y;

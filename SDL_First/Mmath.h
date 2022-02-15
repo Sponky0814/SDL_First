@@ -1,12 +1,7 @@
 #pragma once
-#include <SDL.h>
 #include <iostream>
 
-SDL_Rect Screen = {0, 0, 1920, 1080};
-
-//Init window and renderer
-SDL_Window* window = SDL_CreateWindow("Muon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Screen.w, Screen.h, SDL_WINDOW_SHOWN);
-SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+#define elif else if
 
 template<typename T>
 class Vector2 {
@@ -37,7 +32,7 @@ class Vector2 {
 template<typename T>
 class DyArray {
 
-	size_t size = 0;
+	Uint16 size = 0;
 
 	public:
 
@@ -65,6 +60,6 @@ class DyArray {
 
 		}
 
-	size_t GetSize() const { return this->size; }
+	 size_t GetSize() const { return this->size; }
 
 };
