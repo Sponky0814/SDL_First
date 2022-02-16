@@ -53,10 +53,6 @@ class gameObject {
 
 };
 
-DyArray<Transform> TrArray;
-
-DyArray<Transform> BlockMap[128];
-
 //####################
 //Function definitions
 //####################

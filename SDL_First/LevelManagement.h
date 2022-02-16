@@ -46,10 +46,7 @@ class Level {
 
 };
 
-	int CellId = 0;
-
-	gameObject Block;
-	Transform Line;
+	DyArray<Transform> BlockMap[256];
 
 //####################
 //Function definitions
@@ -57,8 +54,11 @@ class Level {
 
 void InitLevel(Level& level) {
 
+	gameObject Block;
+	Transform Line;
+
 	Block.transform.size = { 60, 60 };
-	CellId = NULL;
+	int CellId = NULL;
 	level.CellArray.members = new Cell;
 
 	for (int row = 0; row < level.Resolution.y; row++) {
@@ -80,8 +80,14 @@ void InitLevel(Level& level) {
 					Line.size.x = 1;
 					Line.size.y = Block.transform.size.y;
 					Line.position = Block.transform.position;
-					TrArray.Add(Line);
 	
+					//This is awful
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
+						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
+						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
+
 				}
 
 				//RIGHT
@@ -92,7 +98,13 @@ void InitLevel(Level& level) {
 					Line.size.y = Block.transform.size.y;
 					Line.position.x = Block.transform.position.x;
 					Line.position.x = Block.transform.position.x + Block.transform.size.x;
-					TrArray.Add(Line);
+
+					//This is awful
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
+						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
+						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
 
 				}
 
@@ -103,7 +115,13 @@ void InitLevel(Level& level) {
 					Line.size.y = 1;
 					Line.size.x = Block.transform.size.x;
 					Line.position = Block.transform.position;
-					TrArray.Add(Line);
+					
+					//This is awful
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
+						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
+						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
 
 				}
 
@@ -114,7 +132,13 @@ void InitLevel(Level& level) {
 					Line.size.y = 1;
 					Line.size.x = Block.transform.size.x;
 					Line.position.y = Block.transform.position.y + Block.transform.size.y;
-					TrArray.Add(Line);
+					
+					//This is awful
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
+						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
+						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
 
 				}
 
