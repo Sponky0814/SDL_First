@@ -3,6 +3,8 @@
 
 extern SDL_Renderer* renderer;
 
+extern Transform BlockMap[256][128];
+
 class Cell {
 
 	public:
@@ -46,8 +48,6 @@ class Level {
 
 };
 
-	DyArray<Transform> BlockMap[256];
-
 //####################
 //Function definitions
 //####################
@@ -80,13 +80,41 @@ void InitLevel(Level& level) {
 					Line.size.x = 1;
 					Line.size.y = Block.transform.size.y;
 					Line.position = Block.transform.position;
-	
-					//This is awful
-					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
-						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
-						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
+
+						int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0,0,0,0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+							
+							}	
+
+						}
+
+					}
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+
+						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+
+					}
 
 				}
 
@@ -99,12 +127,40 @@ void InitLevel(Level& level) {
 					Line.position.x = Block.transform.position.x;
 					Line.position.x = Block.transform.position.x + Block.transform.size.x;
 
-					//This is awful
-					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
-						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
-						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
+						int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+					}
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+
+						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+
+					}
 
 				}
 
@@ -116,12 +172,40 @@ void InitLevel(Level& level) {
 					Line.size.x = Block.transform.size.x;
 					Line.position = Block.transform.position;
 					
-					//This is awful
-					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
-						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
-						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
+						int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+					}
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+
+						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+
+					}
 
 				}
 
@@ -133,12 +217,40 @@ void InitLevel(Level& level) {
 					Line.size.x = Block.transform.size.x;
 					Line.position.y = Block.transform.position.y + Block.transform.size.y;
 					
-					//This is awful
-					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16)
-						BlockMap[(int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128))].Add(Line);
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128))
-						BlockMap[(int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128))].Add(Line);
+						int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+					}
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+
+						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+
+					}
 
 				}
 

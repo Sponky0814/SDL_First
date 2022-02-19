@@ -30,7 +30,18 @@ class Transform {
 			position = new Vector2<float>(x, y); size = new Vector2<float>(w, h);
 		}
 
+		bool operator==(Transform* other) {
+
+			if (position.x == other->position.x && position.y == other->position.y && size.x == other->size.x && size.y == other->size.y)
+				return true;
+			else
+				return false;
+
+		}
+
 };
+
+Transform BlockMap[256][128];
 
 class RigidBody {
 
@@ -98,13 +109,27 @@ void Draw(gameObject gO) {
 
 }
 
-float* GetBorders(gameObject tempObject) {
+Transform* GetBorders(gameObject tempObject) {
 
-	static float ColZone[4]{};
-	ColZone[0] = (float)tempObject.transform.position.x;
-	ColZone[1] = (float)tempObject.transform.position.x + tempObject.transform.size.x;
-	ColZone[2] = (float)tempObject.transform.position.y;
-	ColZone[3] = (float)tempObject.transform.position.y - tempObject.transform.size.y;
+	Transform ColZone[4]{};
+
+	//a
+	ColZone[0].position = tempObject.transform.position; 
+	ColZone[0].size.y = tempObject.transform.size.y;
+
+	//b
+	ColZone[1].position.x = tempObject.transform.position.x;
+	ColZone[1].position.y = tempObject.transform.position.y + tempObject.transform.size.y;
+	ColZone[1].size.x = tempObject.transform.size.x;
+
+	//c
+	ColZone[2].position.x = tempObject.transform.position.x + tempObject.transform.size.x;
+	ColZone[2].position.y = tempObject.transform.position.y;
+	ColZone[2].size.y = tempObject.transform.size.y;
+
+	//d
+	ColZone[3].position = tempObject.transform.position;
+	ColZone[3].size.x = tempObject.transform.size.x;
 
 	return ColZone;
 
@@ -112,42 +137,8 @@ float* GetBorders(gameObject tempObject) {
 
 void CheckCollision(gameObject& Obj) {
 
-    float MainBorders[3]{};
+    Transform* MainBorders = GetBorders(Obj);
 
-	for (int i = 0; i < 4; i++) {
-
-		if (i == 0 || i == 2)
-			MainBorders[i] = GetBorders(Obj)[i] - 1;
-		else
-			MainBorders[i] = GetBorders(Obj)[i] + 1;
-
-	}
-
-	if (MainBorders[2] > Screen.h - Obj.transform.size.y)
-		Obj.collider.b = true;
-	else
-		Obj.collider.b = false;
-
-	if (MainBorders[0] < 0) {
-
-		Obj.collider.a = true;
-
-		Obj.transform.position.x = 0;
-
-	}
-	else
-		Obj.collider.a = false;
-
-	if (MainBorders[1] > Screen.w) {
-
-		Obj.collider.c = true;
-
-		Obj.transform.position.x = Screen.w - Obj.transform.size.x;
-
-	}
-	else
-		Obj.collider.c = false;
-
-
+	
 
 }
