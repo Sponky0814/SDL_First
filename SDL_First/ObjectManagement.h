@@ -1,74 +1,14 @@
 #pragma once
 #include <SDL_image.h>
 #include "Log.h"
+#include "PhysicsClasses.h"
 #include "Mmath.h"
-
-extern SDL_Renderer* renderer;
-
-extern SDL_Rect Screen;
-
-class Collider {
-
-	public:
-		bool a, b, c, d;
-
-		Collider() {
-			a = false; b = false; c = false; d = false;
-		}
-
-};
-
-class Transform {
-
-	public:
-		Vector2<float> position;
-		Vector2<float> size;
-
-		Transform() {}
-
-		Transform(float x, float y, float w, float h) {
-			position = new Vector2<float>(x, y); size = new Vector2<float>(w, h);
-		}
-
-		bool operator==(Transform* other) {
-
-			if (position.x == other->position.x && position.y == other->position.y && size.x == other->size.x && size.y == other->size.y)
-				return true;
-			else
-				return false;
-
-		}
-
-};
-
-Transform BlockMap[256][128];
-
-class RigidBody {
-
-	public:
-		Vector2<float> velocity;
-
-};
-
-class gameObject {
-
-	public:
-		Transform transform{};
-		Collider collider{};
-		RigidBody rigidBody{};
-		SDL_Texture* texture{};
-
-		const char* name = "Unknown";
-
-		gameObject() {}
-
-};
 
 //####################
 //Function definitions
 //####################
 
-SDL_Texture* LoadTexture(const char* file) {
+SDL_Texture* LoadTexture(const char* file, SDL_Renderer* Renderer) {
 
 	SDL_Surface* LoadedSurface = IMG_Load(file);
 
@@ -76,7 +16,7 @@ SDL_Texture* LoadTexture(const char* file) {
 
 	SDL_DestroyTexture(loadingTexture);
 
-	loadingTexture = SDL_CreateTextureFromSurface(renderer, LoadedSurface);
+	loadingTexture = SDL_CreateTextureFromSurface(Renderer, LoadedSurface);
 
 	SDL_FreeSurface(LoadedSurface);
 
@@ -88,7 +28,7 @@ SDL_Texture* LoadTexture(const char* file) {
 
 }
 
-SDL_Rect* ToRect(Transform t) {
+SDL_Rect* ToRect(const Transform t) {
 
 	SDL_Rect* rect = new SDL_Rect;
 	rect->x = (int)t.position.x;
@@ -100,12 +40,12 @@ SDL_Rect* ToRect(Transform t) {
 
 }
 
-void Draw(gameObject gO) {
+void Draw(gameObject gO, SDL_Renderer* Renderer, SDL_Rect Resolution) {
 
 	if (gO.texture == nullptr)
 		Error("Empty texture");
 
-	SDL_RenderCopy(renderer, gO.texture, &Screen, ToRect(gO.transform));
+	SDL_RenderCopy(Renderer, gO.texture, &Resolution, ToRect(gO.transform));
 
 }
 
@@ -114,7 +54,8 @@ Transform* GetBorders(gameObject tempObject) {
 	Transform ColZone[4]{};
 
 	//a
-	ColZone[0].position = tempObject.transform.position; 
+	ColZone[0].position.x = tempObject.transform.position.x - 1;
+	ColZone[0].position.y = tempObject.transform.position.y;
 	ColZone[0].size.y = tempObject.transform.size.y;
 
 	//b
@@ -135,10 +76,42 @@ Transform* GetBorders(gameObject tempObject) {
 
 }
 
-void CheckCollision(gameObject& Obj) {
+Collider GetCollisions(gameObject Obj, Transform BlockMap[256][128]) {
 
     Transform* MainBorders = GetBorders(Obj);
 
+	bool a, b, c, d;
+
+	int x0 = (int)ceil(Obj.transform.position.x / 128);
+
+	int x1 = (int)ceil((Obj.transform.position.x + Obj.transform.size.x) / 128);
+
+	int y0 = 32 * (int)ceil(Obj.transform.position.y / 128);
+
+	int y1 = 32 * (int)ceil((Obj.transform.position.y + Obj.transform.size.y) / 128);
+
+	//Upper left
+	int A = x0 + y0;
 	
+	//Lower left
+	int B = x0 + y1;
+
+	//Lower right
+	int C = x1 + y1;
+
+	//Upper right
+	int D = x1 + y0;
+
+	for (int i = 0; i < 128; i++) {
+
+		if (BlockMap[A][i] != new Transform(0,0,0,0)) {
+
+			//if ()
+
+		}
+
+	}
+
+	return *new Collider();
 
 }

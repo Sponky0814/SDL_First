@@ -1,7 +1,7 @@
 #pragma once
 #include <Muon.h>
-
-extern SDL_Renderer* renderer;
+#include "PhysicsClasses.h"
+#include "Log.h"
 
 extern Transform BlockMap[256][128];
 
@@ -30,7 +30,7 @@ class Level {
 		Level() {
 			
 			crystal.name = "Crystal";
-			crystal.texture = LoadTexture("Images/Rock.png");
+			crystal.texture = LoadTexture("Images/Rock.png", renderer);
 			crystal.transform.size = { 60, 60 };
 
 		}
@@ -41,7 +41,7 @@ class Level {
 			TileMap = tM; Resolution = r;
 
 			crystal.name = "Crystal";
-			crystal.texture = LoadTexture("Images/Rock.png");
+			crystal.texture = LoadTexture("Images/Rock.png", renderer);
 			crystal.transform.size = { 60, 60 };
 
 		}
@@ -270,7 +270,7 @@ void InitLevel(Level& level) {
 
 }
 
-void DrawLevel(Level level) {
+void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution) {
 
 	for (int i = 0; i != level.CellArray.GetSize(); i++) {
 
@@ -282,7 +282,7 @@ void DrawLevel(Level level) {
 			case 1:
 				level.crystal.transform.position = level.CellArray.members[i].cellTransform.position;
 
-				Draw(level.crystal);
+				Draw(level.crystal, renderer, Resolution);
 
 				break;
 

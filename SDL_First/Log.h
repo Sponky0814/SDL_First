@@ -2,7 +2,7 @@
 #include "Mmath.h"
 #include <Windows.h>
 
-HANDLE ConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+extern HANDLE ConsoleHandle;
 
 DyArray<const char*> ErrorCache;
 

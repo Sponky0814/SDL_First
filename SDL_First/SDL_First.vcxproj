@@ -149,6 +149,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PhysicsClasses.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="LevelManagement.h" />
     <ClInclude Include="Mmath.h" />

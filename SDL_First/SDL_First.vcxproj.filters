@@ -18,6 +18,9 @@
     <ClInclude Include="Mmath.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsClasses.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CppFiles">

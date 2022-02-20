@@ -1,5 +1,7 @@
 #include <Muon.h>
 
+extern Transform BlockMap[256][128];
+
 #pragma region Variables
 
 bool Game_runnig;
@@ -59,7 +61,7 @@ void Update() {
 		//Take Input for y movement using windows API
 		//because the SDL2 input system is garbage
 		if (GetKeyState(VK_SPACE) & 0x8000 && Player.collider.b)
-			Player.rigidBody.velocity.y = -16;
+			Player.velocity.y = -16;
 
 		//Take Input for x movement using windows API
 		//because the SDL2 input system is garbage
@@ -70,10 +72,10 @@ void Update() {
 				switch (Player.collider.b) {
 
 					case true:
-						Player.rigidBody.velocity.x -= 1;
+						Player.velocity.x -= 1;
 
 					case false:
-						Player.rigidBody.velocity.x -= 0.8f;
+						Player.velocity.x -= 0.8f;
 
 				}
 
@@ -92,10 +94,10 @@ void Update() {
 				switch (Player.collider.b) {
 					
 					case true:
-						Player.rigidBody.velocity.x += 1;
+						Player.velocity.x += 1;
 
 					case false:
-						Player.rigidBody.velocity.x += 0.8f;
+						Player.velocity.x += 0.8f;
 
 				}
 
@@ -109,42 +111,42 @@ void Update() {
 		
 		//Ground friction
 		if (!Input_a && !Input_d && Player.collider.b)
-			Player.rigidBody.velocity.x += (float)(-1 * Player.rigidBody.velocity.x);
+			Player.velocity.x += (float)(-1 * Player.velocity.x);
 		
 		//air friction
-		if (Player.rigidBody.velocity.x != 0 && !Player.collider.b)
-			Player.rigidBody.velocity.x -= 0.1f * (Player.rigidBody.velocity.x / abs(Player.rigidBody.velocity.x));
+		if (Player.velocity.x != 0 && !Player.collider.b)
+			Player.velocity.x -= 0.1f * (Player.velocity.x / abs(Player.velocity.x));
 
 		// Gravity
-		if (Player.rigidBody.velocity.y < 16)
-			Player.rigidBody.velocity.y += 1;
+		if (Player.velocity.y < 16)
+			Player.velocity.y += 1;
 
 		// x Collision
-		if (Player.collider.a && Player.rigidBody.velocity.x < 0 || Player.collider.c && Player.rigidBody.velocity.x > 0)
-			Player.rigidBody.velocity.x = 0;
+		if (Player.collider.a && Player.velocity.x < 0 || Player.collider.c && Player.velocity.x > 0)
+			Player.velocity.x = 0;
 
 		// y Collision
-		if (Player.collider.b && Player.rigidBody.velocity.y > 0)
-			Player.rigidBody.velocity.y = 0;
+		if (Player.collider.b && Player.velocity.y > 0)
+			Player.velocity.y = 0;
 
 		// cap speed
-		if (abs(Player.rigidBody.velocity.x) > 5)
-			Player.rigidBody.velocity.x = 5 * (Player.rigidBody.velocity.x / abs(Player.rigidBody.velocity.x));
+		if (abs(Player.velocity.x) > 5)
+			Player.velocity.x = 5 * (Player.velocity.x / abs(Player.velocity.x));
 
 		if (Input_a && Input_d && Player.collider.b)
-			Player.rigidBody.velocity.x = 0;
+			Player.velocity.x = 0;
 
 		//Update x velocity
-		Player.transform.position.x += (int)Player.rigidBody.velocity.x * 4;
+		Player.transform.position.x += (int)Player.velocity.x * 4;
 
 		//Update y velocity
-		Player.transform.position.y += (int)Player.rigidBody.velocity.y * 2;
+		Player.transform.position.y += (int)Player.velocity.y * 2;
 
 		//Renders texure on screen
 		SDL_RenderClear(renderer);
-		CheckCollision(Player);
-		Draw(Player);
-		DrawLevel(Level1);
+		Player.collider = GetCollisions(Player, BlockMap);
+		Draw(Player, renderer, Screen);
+		DrawLevel(Level1, renderer, Screen);
 		SDL_RenderPresent(renderer);
 
 		//Take SDL input
@@ -178,7 +180,7 @@ int main(int argc, char* argv[]) {
 
 	Player.transform.size = { 96, 96 };
 	Player.transform.position = { 487, 952 };
-	Player.texture = LoadTexture("Images/Lukanguz.png");
+	Player.texture = LoadTexture("Images/Lukanguz.png", renderer);
 
 	InitLevel(Level1);
 
