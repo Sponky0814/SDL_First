@@ -1,56 +1,11 @@
 #pragma once
 #include <Muon.h>
 #include "PhysicsClasses.h"
+#include "ObjectManagement.h"
 #include "Log.h"
+#include "LevelClasses.h"
 
 extern Transform BlockMap[256][128];
-
-class Cell {
-
-	public:
-		int type = NULL;
-		Transform cellTransform;
-
-		Cell() {}
-
-		Cell(int t, Transform ct) { type = t; cellTransform = ct; }
-	
-};
-
-class Level {
-
-	public:
-		int* TileMap = NULL;
-		Vector2<int> Resolution;
-
-		gameObject crystal;
-
-		DyArray<Cell> CellArray;
-
-		Level() {
-			
-			crystal.name = "Crystal";
-			crystal.texture = LoadTexture("Images/Rock.png", renderer);
-			crystal.transform.size = { 60, 60 };
-
-		}
-
-		~Level() {}
-
-		Level(int* tM, Vector2<int> r) {
-			TileMap = tM; Resolution = r;
-
-			crystal.name = "Crystal";
-			crystal.texture = LoadTexture("Images/Rock.png", renderer);
-			crystal.transform.size = { 60, 60 };
-
-		}
-
-};
-
-//####################
-//Function definitions
-//####################
 
 void InitLevel(Level& level) {
 
@@ -98,7 +53,8 @@ void InitLevel(Level& level) {
 
 					}
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
+						ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
 
 						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
 
@@ -144,7 +100,8 @@ void InitLevel(Level& level) {
 
 					}
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
+						ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
 
 						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
 
@@ -189,7 +146,8 @@ void InitLevel(Level& level) {
 
 					}
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
+						ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
 
 						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
 
@@ -234,7 +192,8 @@ void InitLevel(Level& level) {
 
 					}
 
-					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) || ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
+						ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
 
 						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
 
@@ -280,9 +239,9 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution) {
 				break;
 
 			case 1:
-				level.crystal.transform.position = level.CellArray.members[i].cellTransform.position;
+				crystal.transform.position = level.CellArray.members[i].cellTransform.position;
 
-				Draw(level.crystal, renderer, Resolution);
+				Draw(crystal, renderer, Resolution);
 
 				break;
 

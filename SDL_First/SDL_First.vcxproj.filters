@@ -21,6 +21,12 @@
     <ClInclude Include="PhysicsClasses.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="LevelClasses.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CppFiles">

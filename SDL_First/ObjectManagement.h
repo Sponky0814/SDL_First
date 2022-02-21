@@ -4,30 +4,6 @@
 #include "PhysicsClasses.h"
 #include "Mmath.h"
 
-//####################
-//Function definitions
-//####################
-
-SDL_Texture* LoadTexture(const char* file, SDL_Renderer* Renderer) {
-
-	SDL_Surface* LoadedSurface = IMG_Load(file);
-
-	SDL_Texture* loadingTexture{};
-
-	SDL_DestroyTexture(loadingTexture);
-
-	loadingTexture = SDL_CreateTextureFromSurface(Renderer, LoadedSurface);
-
-	SDL_FreeSurface(LoadedSurface);
-
-	if (loadingTexture == nullptr) {
-		Error("Empty texture");
-	}
-
-	return loadingTexture;
-
-}
-
 SDL_Rect* ToRect(const Transform t) {
 
 	SDL_Rect* rect = new SDL_Rect;

@@ -149,6 +149,8 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Rendering.h" />
+    <ClInclude Include="LevelClasses.h" />
     <ClInclude Include="PhysicsClasses.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="LevelManagement.h" />

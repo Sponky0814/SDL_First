@@ -4,8 +4,6 @@
 
 extern HANDLE ConsoleHandle;
 
-DyArray<const char*> ErrorCache;
-
 void Debug(const char* Log) {
 
 	std::cout << "Log: " << Log << "\n";
@@ -13,6 +11,8 @@ void Debug(const char* Log) {
 }
 
 void Error(const char* Log) {
+
+	static DyArray<const char*> ErrorCache;
 
 	SetConsoleTextAttribute(ConsoleHandle, 12);
 
