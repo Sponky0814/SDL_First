@@ -143,8 +143,15 @@ void Update() {
 		Player.transform.position.y += (int)Player.velocity.y * 2;
 
 		//Renders texure on screen
+		Player = GetCollisions(Player, BlockMap);
+
+		if (Player.collider.b) {
+
+
+
+		}
+
 		SDL_RenderClear(renderer);
-		Player.collider = GetCollisions(Player, BlockMap);
 		Draw(Player, renderer, Screen);
 		DrawLevel(Level1, renderer, Screen);
 		SDL_RenderPresent(renderer);
@@ -179,7 +186,7 @@ int main(int argc, char* argv[]) {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
 	Player.transform.size = { 96, 96 };
-	Player.transform.position = { 487, 952 };
+	Player.transform.position = { 487, 700 };
 	Player.texture = LoadTexture("Images/Lukanguz.png", renderer);
 
 	InitLevel(Level1);

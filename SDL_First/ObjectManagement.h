@@ -52,19 +52,19 @@ Transform* GetBorders(gameObject tempObject) {
 
 }
 
-Collider GetCollisions(gameObject Obj, Transform BlockMap[256][128]) {
+gameObject GetCollisions(gameObject Obj, Transform BlockMap[256][128]) {
 
     Transform* MainBorders = GetBorders(Obj);
 
-	bool a, b, c, d;
+	Obj.collider = new Collider;
 
 	int x0 = (int)ceil(Obj.transform.position.x / 128);
 
 	int x1 = (int)ceil((Obj.transform.position.x + Obj.transform.size.x) / 128);
 
-	int y0 = 32 * (int)ceil(Obj.transform.position.y / 128);
+	int y0 = 16 * (int)ceil(Obj.transform.position.y / 128);
 
-	int y1 = 32 * (int)ceil((Obj.transform.position.y + Obj.transform.size.y) / 128);
+	int y1 = 16 * (int)ceil((Obj.transform.position.y + Obj.transform.size.y) / 128);
 
 	//Upper left
 	int A = x0 + y0;
@@ -80,14 +80,23 @@ Collider GetCollisions(gameObject Obj, Transform BlockMap[256][128]) {
 
 	for (int i = 0; i < 128; i++) {
 
+		if (A > 256)
+			A = 256;
+
 		if (BlockMap[A][i] != new Transform(0,0,0,0)) {
 
-			//if ()
+			if (BlockMap[A][i].position.x < MainBorders[1].position.x && BlockMap[A][i].position.x + BlockMap[A][i].size.x < MainBorders[1].position.x && BlockMap[A][i].position.y - 1 == MainBorders[1].position.y) {
+
+				Obj.collider.b = true;
+				Obj.transform.position.y = BlockMap[A][i].position.y - 1;
+				Obj.velocity.y = 0;
+
+			}
 
 		}
 
 	}
 
-	return *new Collider();
+	return Obj;
 
 }

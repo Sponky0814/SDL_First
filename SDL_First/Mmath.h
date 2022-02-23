@@ -21,9 +21,33 @@ class Vector2 {
 
 		~Vector2() {}
 
-		Vector2 operator=(Vector2<T>* other) const {
+		Vector2 operator=(const Vector2<T>* other) const {
 
 			return Vector2(x + other->x, y + other->y);
+
+		}
+
+		Vector2 operator=(const Vector2<T>& other) const {
+
+			return Vector2(x + other.x, y + other.y);
+
+		}
+
+		bool operator!=(const Vector2<T>* other) const {
+
+			if (x != other->x || y != other->y)
+				return !(this == *other);
+			else
+				return (this == *other);
+
+		}
+
+		bool operator!=(const Vector2<T>& other) const {
+
+			if (x != other.x || y != other.y)
+				return !(this == *other);
+			else
+				return (this == *other);
 
 		}
 

@@ -5,14 +5,26 @@
 
 class Collider {
 
-public:
-	bool a, b, c, d;
+	public:
+		bool a, b, c, d;
 
-	Collider() { a = false; b = false; c = false; d = false; }
+		Collider() { a = false; b = false; c = false; d = false; }
 
-	Collider(bool A, bool B, bool C, bool D) {
-		a = A; b = B; c = C; d = D;
-	}
+		Collider(bool A, bool B, bool C, bool D) {
+			a = A; b = B; c = C; d = D;
+		}
+
+		Collider operator=(const Collider& other) const {
+
+			return other;
+
+		}
+
+		Collider operator=(const Collider* other) const {
+
+			return *other;
+
+		}
 
 };
 
@@ -22,7 +34,7 @@ class Transform {
 		Vector2<float> position;
 		Vector2<float> size;
 
-		Transform() {}
+		Transform() { position.x = 0; position.y = 0; size.x = 0; size.y = 0; }
 
 		Transform(float x, float y, float w, float h) {
 			position = new Vector2<float>(x, y); size = new Vector2<float>(w, h);
@@ -34,19 +46,37 @@ class Transform {
 				return true;
 			else
 				return false;
-	
+
+		}
+
+		bool operator==(const Transform& other) const {
+
+			if (position.x == other.position.x && position.y == other.position.y && size.x == other.size.x && size.y == other.size.y)
+				return true;
+			else
+				return false;
+
 		}
 
 		bool operator!=(const Transform* other) const {
 
-			if (position.x == other->position.x && position.y == other->position.y && size.x == other->size.x && size.y == other->size.y)
-				return false;
+			if (position.x != other->position.x || position.y != other->position.y || size.x != other->size.x || size.y != other->size.y)
+				return !(this == *other);
 			else
-				return true;
+				return (this == *other);
 
 		}
 
-	};
+		bool operator!=(const Transform& other) const {
+
+			if (position.x == other.position.x || position.y == other.position.y || size.x == other.size.x || size.y == other.size.y)
+				return !(this == other);
+			else
+				return (this == other);
+
+		}
+
+};
 
 class gameObject {
 
