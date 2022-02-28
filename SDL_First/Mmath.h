@@ -21,15 +21,15 @@ class Vector2 {
 
 		~Vector2() {}
 
-		Vector2 operator=(const Vector2<T>* other) const {
+		Vector2* operator=(Vector2<T>* other) const {
 
-			return Vector2(x + other->x, y + other->y);
+			return other;
 
 		}
 
 		Vector2 operator=(const Vector2<T>& other) const {
 
-			return Vector2(x + other.x, y + other.y);
+			return other;
 
 		}
 

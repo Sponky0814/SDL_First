@@ -28,6 +28,6 @@ class Level {
 
 		~Level() {}
 
-		Level(int* tM, Vector2<int> r) { TileMap = tM; Resolution = r; }
+		Level(int* tM, int x, int y) { TileMap = tM; Resolution.x = x; Resolution.y = y; }
 
 };

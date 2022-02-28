@@ -49,7 +49,7 @@ Level Level1(new int[576]{
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 
-	}, { 32, 18 });
+	}, 32, 18 );
 
 #pragma endregion
 
@@ -191,8 +191,10 @@ int main(int argc, char* argv[]) {
 	//Set Backround color to black
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-	Player.transform.size = { 96, 96 };
-	Player.transform.position = { 487, 700 };
+	Player.transform.size.x = 96;
+	Player.transform.size.y = 96;
+	Player.transform.position.x = 487;
+	Player.transform.position.y = 700;
 	Player.texture = LoadTexture("Images/Lukanguz.png", renderer);
 
 	Level1 = InitLevel(Level1);

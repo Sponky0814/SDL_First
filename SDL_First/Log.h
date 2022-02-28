@@ -2,10 +2,7 @@
 #include "Mmath.h"
 #include <Windows.h>
 
-
 #define CheckErrorCache true
-
-//extern HANDLE ConsoleHandle;
 
 void Debug(const char* Log) {
 
