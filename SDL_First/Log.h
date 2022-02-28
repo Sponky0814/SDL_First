@@ -2,7 +2,10 @@
 #include "Mmath.h"
 #include <Windows.h>
 
-extern HANDLE ConsoleHandle;
+
+#define CheckErrorCache true
+
+//extern HANDLE ConsoleHandle;
 
 void Debug(const char* Log) {
 
@@ -14,13 +17,13 @@ void Error(const char* Log) {
 
 	static DyArray<const char*> ErrorCache;
 
-	SetConsoleTextAttribute(ConsoleHandle, 12);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 
 	for (int i = 0; i < ErrorCache.GetSize(); i++) {
 
-		if (ErrorCache.members[i] == Log) {
+		if (ErrorCache.members[i] == Log && CheckErrorCache == true) {
 
-			SetConsoleTextAttribute(ConsoleHandle, 15);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			return;
 
 		}
@@ -30,6 +33,6 @@ void Error(const char* Log) {
 	std::cout << "Error: " << Log << "\n";
 	ErrorCache.Add(Log);
 
-	SetConsoleTextAttribute(ConsoleHandle, 15);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 }

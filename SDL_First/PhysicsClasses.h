@@ -98,4 +98,10 @@ class gameObject {
 
 		}
 
+		gameObject operator=(const gameObject& other) const {
+
+			return other;
+
+		}
+
 };

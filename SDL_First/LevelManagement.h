@@ -1,13 +1,11 @@
 #pragma once
-#include <Muon.h>
 #include "PhysicsClasses.h"
 #include "ObjectManagement.h"
 #include "Log.h"
 #include "LevelClasses.h"
 
-extern Transform BlockMap[256][128];
-
-void InitLevel(Level& level) {
+//Warning cancer ahead
+Level InitLevel(Level level) {
 
 	gameObject Block;
 	Transform Line;
@@ -42,9 +40,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0,0,0,0)) {
+							if (level.BlockMap[b][i] == new Transform(0,0,0,0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 							
 							}	
@@ -60,9 +58,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+							if (level.BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 
 							}
@@ -89,9 +87,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+							if (level.BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 
 							}
@@ -107,9 +105,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+							if (level.BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 
 							}
@@ -135,9 +133,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+							if (level.BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 
 							}
@@ -153,9 +151,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+							if (level.BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 
 							}
@@ -181,9 +179,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+							if (level.BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 
 							}
@@ -199,9 +197,9 @@ void InitLevel(Level& level) {
 
 						for (int i = 0; i < 128; i++) {
 
-							if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+							if (level.BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
 
-								BlockMap[b][i] = Line;
+								level.BlockMap[b][i] = Line;
 								break;
 
 							}
@@ -227,9 +225,11 @@ void InitLevel(Level& level) {
 
 	}
 
+	return level;
+
 }
 
-void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution) {
+void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Textures& textures) {
 
 	for (int i = 0; i != level.CellArray.GetSize(); i++) {
 
@@ -239,9 +239,9 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution) {
 				break;
 
 			case 1:
-				crystal.transform.position = level.CellArray.members[i].cellTransform.position;
+				textures.GetCrystal.transform.position = level.CellArray.members[i].cellTransform.position;
 
-				Draw(crystal, renderer, Resolution);
+				Draw(textures.GetCrystal(), renderer, Resolution);
 
 				break;
 

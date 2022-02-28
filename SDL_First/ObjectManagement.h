@@ -85,7 +85,8 @@ gameObject GetCollisions(gameObject Obj, Transform BlockMap[256][128]) {
 
 		if (BlockMap[A][i] != new Transform(0,0,0,0)) {
 
-			if (BlockMap[A][i].position.x < MainBorders[1].position.x && BlockMap[A][i].position.x + BlockMap[A][i].size.x < MainBorders[1].position.x && BlockMap[A][i].position.y - 1 == MainBorders[1].position.y) {
+			if (BlockMap[A][i].position.x < MainBorders[1].position.x && BlockMap[A][i].position.x + BlockMap[A][i].size.x <
+				MainBorders[1].position.x && BlockMap[A][i].position.y - 1 == MainBorders[1].position.y) {
 
 				Obj.collider.b = true;
 				Obj.transform.position.y = BlockMap[A][i].position.y - 1;

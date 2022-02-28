@@ -1,6 +1,16 @@
-#include <Muon.h>
+#include <iostream>
+#include <SDL.h>
+#include <SDL_image.h>
+#include "PhysicsClasses.h"
+#include "LevelClasses.h"
+#include "LevelManagement.h"
+#include "Mmath.h"
+#include "Log.h"
 
-extern Transform BlockMap[256][128];
+SDL_Rect Screen = { 0, 0, 1920, 1080 };
+
+SDL_Window* window = SDL_CreateWindow("Muon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Screen.w, Screen.h, SDL_WINDOW_SHOWN);
+SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
 #pragma region Variables
 
@@ -42,7 +52,7 @@ Level Level1(new int[576]{
 
 #pragma endregion
 
-//Run code every frame.
+//Run code every frame
 void Update() {
 	
 	Debug("App initialized");
@@ -143,13 +153,7 @@ void Update() {
 		Player.transform.position.y += (int)Player.velocity.y * 2;
 
 		//Renders texure on screen
-		Player = GetCollisions(Player, BlockMap);
-
-		if (Player.collider.b) {
-
-
-
-		}
+		Player = GetCollisions(Player, Level1.BlockMap);
 
 		SDL_RenderClear(renderer);
 		Draw(Player, renderer, Screen);
@@ -170,13 +174,14 @@ void Update() {
 		}
 
 	}
+
 }
 
 //Initializes Stuff
 int main(int argc, char* argv[]) {
 
 	//Set Console color to bright white
-	SetConsoleTextAttribute(ConsoleHandle, 15);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
 	Debug("Initializing app...");
 
@@ -196,4 +201,5 @@ int main(int argc, char* argv[]) {
 	Debug("Quit");
 
 	return 0;
+
 }
