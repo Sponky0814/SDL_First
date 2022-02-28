@@ -195,7 +195,7 @@ int main(int argc, char* argv[]) {
 	Player.transform.position = { 487, 700 };
 	Player.texture = LoadTexture("Images/Lukanguz.png", renderer);
 
-	InitLevel(Level1);
+	Level1 = InitLevel(Level1);
 
 	Update();
 
