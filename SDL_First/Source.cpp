@@ -4,6 +4,7 @@
 #include "PhysicsClasses.h"
 #include "LevelClasses.h"
 #include "LevelManagement.h"
+#include "RenderingClasses.h"
 #include "Mmath.h"
 #include "Log.h"
 
@@ -157,7 +158,7 @@ void Update() {
 
 		SDL_RenderClear(renderer);
 		Draw(Player, renderer, Screen);
-		DrawLevel(Level1, renderer, Screen);
+		DrawLevel(Level1, renderer, Screen, Blocks::Get());
 		SDL_RenderPresent(renderer);
 
 		//Take SDL input

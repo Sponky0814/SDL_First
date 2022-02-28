@@ -3,6 +3,7 @@
 #include "ObjectManagement.h"
 #include "Log.h"
 #include "LevelClasses.h"
+#include "RenderingClasses.h"
 
 //Warning cancer ahead
 Level InitLevel(Level level) {
@@ -229,7 +230,7 @@ Level InitLevel(Level level) {
 
 }
 
-void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Textures& textures) {
+void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Blocks& textures) {
 
 	for (int i = 0; i != level.CellArray.GetSize(); i++) {
 
@@ -239,7 +240,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 				break;
 
 			case 1:
-				textures.GetCrystal.transform.position = level.CellArray.members[i].cellTransform.position;
+				textures.GetCrystal().transform.position = level.CellArray.members[i].cellTransform.position;
 
 				Draw(textures.GetCrystal(), renderer, Resolution);
 

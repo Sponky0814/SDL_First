@@ -159,6 +159,7 @@
     <ClInclude Include="LevelManagement.h" />
     <ClInclude Include="Mmath.h" />
     <ClInclude Include="ObjectManagement.h" />
+    <ClInclude Include="RenderingClasses.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
