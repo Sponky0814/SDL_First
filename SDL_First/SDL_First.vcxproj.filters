@@ -9,10 +9,10 @@
     <ClInclude Include="Log.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="LevelManagement.h">
+    <ClInclude Include="LevelFunctions.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectManagement.h">
+    <ClInclude Include="ObjectFunctions.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="Mmath.h">

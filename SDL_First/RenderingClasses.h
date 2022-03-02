@@ -4,27 +4,29 @@
 
 extern SDL_Renderer* renderer;
 
-class Blocks {
+//Singleton
+class Textures {
 
 	public:
-		Blocks(const Blocks&) = delete;
 
-		static Blocks& Get() {
+		Textures(const Textures&) = delete;
 
-			static Blocks instance;
+		static Textures& Get() {
+
+			static Textures instance;
 			return instance;
 
 		}
 
-		gameObject GetCrystal() { return crystal; }
+		SDL_Texture* GetCrystal() { return crystal; }
 
 	private:
 
-		gameObject crystal;
+		SDL_Texture* crystal;
 
-		Blocks() {
+		Textures() {
 
-			crystal = *new gameObject("crystal", *new Vector2<float>(60, 60), "Images/Rock.png", renderer);
+			crystal = LoadTexture("Images/Rock.png", renderer);
 
 		}
 

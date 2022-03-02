@@ -3,7 +3,7 @@
 #include <SDL_image.h>
 #include "PhysicsClasses.h"
 #include "LevelClasses.h"
-#include "LevelManagement.h"
+#include "LevelFunctions.h"
 #include "RenderingClasses.h"
 #include "Mmath.h"
 #include "Log.h"
@@ -158,7 +158,7 @@ void Update() {
 
 		SDL_RenderClear(renderer);
 		Draw(Player, renderer, Screen);
-		DrawLevel(Level1, renderer, Screen, Blocks::Get());
+		DrawLevel(Level1, renderer, Screen, Textures::Get());
 		SDL_RenderPresent(renderer);
 
 		//Take SDL input
@@ -196,8 +196,6 @@ int main(int argc, char* argv[]) {
 	Player.transform.position.x = 487;
 	Player.transform.position.y = 700;
 	Player.texture = LoadTexture("Images/Lukanguz.png", renderer);
-
-	Level1 = InitLevel(Level1);
 
 	Update();
 
