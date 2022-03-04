@@ -21,7 +21,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 				Block.transform.size.x = 60;
 				Block.transform.size.y = 60;
 				Block.transform.position.x = level.cellArray[i].cellTransform.position.x;
-				Block.transform.position.y = level.cellArray[i].cellTransform.position.x;
+				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
 				Block.texture = LoadTexture("Images/Rock.png", renderer);
 
 				Draw(Block, renderer, Resolution);
@@ -32,6 +32,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 				Error("Illegal cell type in CellArrayPtr");
 				std::cout << level.cellArray[i].type << "\n";
 				break;
+
 		}
 
 	}

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "PhysicsClasses.h"
+#include "Log.h"
 
 class Cell {
 
@@ -39,8 +40,6 @@ class Level {
 
 			}
 
-			cellArray = new Cell[size];
-
 			//Increments every time a part of the cell array is changed
 			int cellArrayTurn = 0;
 
@@ -52,6 +51,8 @@ class Level {
 
 			int CellId = NULL;
 
+			cellArray = new Cell[size];
+
 			for (int row = 0; row < resY; row++) {
 
 				Block.transform.position.y = Block.transform.size.y * row;
@@ -60,9 +61,13 @@ class Level {
 
 					Block.transform.position.x = Block.transform.size.x * column;
 
+					Debug();
+
 					if (TileMap[CellId] == 1) {
 
-						cellArray[cellArrayTurn];
+						cellArray[cellArrayTurn].cellTransform.position.x = Block.transform.position.x;
+						cellArray[cellArrayTurn].cellTransform.position.y = Block.transform.position.y;
+						cellArray[cellArrayTurn].type = 1;
 						cellArrayTurn++;
 
 						//LEFT
