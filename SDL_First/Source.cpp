@@ -154,11 +154,13 @@ void Update() {
 		Player.transform.position.y += (int)Player.velocity.y * 2;
 
 		//Renders texure on screen
-		Player = GetCollisions(Player, Level1.BlockMap);
+		Player = GetCollisions(Player, Level1);
 
 		SDL_RenderClear(renderer);
-		Draw(Player, renderer, Screen);
+
 		DrawLevel(Level1, renderer, Screen, Textures::Get());
+		Draw(Player, renderer, Screen);
+
 		SDL_RenderPresent(renderer);
 
 		//Take SDL input

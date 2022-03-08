@@ -8,8 +8,10 @@
 void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Textures& textures) {
 
 	gameObject Block;
+	Block.transform.size.x = 60;
+	Block.transform.size.y = 60;
 
-	for (int i = 0; i != sizeof(level.cellArray); i++) {
+	for (int i = 0; i != level.GetCellArraySize(); i++) {
 
 		switch (level.cellArray[i].type) {
 
@@ -18,11 +20,9 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 			case 1:
 				
-				Block.transform.size.x = 60;
-				Block.transform.size.y = 60;
 				Block.transform.position.x = level.cellArray[i].cellTransform.position.x;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = LoadTexture("Images/Rock.png", renderer);
+				Block.texture = textures.GetCrystal();
 
 				Draw(Block, renderer, Resolution);
 

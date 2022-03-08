@@ -2,6 +2,7 @@
 #include <SDL_image.h>
 #include "Mmath.h"
 #include "Rendering.h"
+#include "Log.h"
 
 class Collider {
 
@@ -40,39 +41,33 @@ class Transform {
 			position = new Vector2<float>(x, y); size = new Vector2<float>(w, h);
 		}
 
-		bool operator==(const Transform* other) const {
-
-			if (position.x == other->position.x && position.y == other->position.y && size.x == other->size.x && size.y == other->size.y)
-				return true;
-			else
-				return false;
-
-		}
-
 		bool operator==(const Transform& other) const {
 
-			if (position.x == other.position.x && position.y == other.position.y && size.x == other.size.x && size.y == other.size.y)
+			if (&other == nullptr) {
+
+				Error("Reading from nullptr(transform)");
+				return false;
+
+			}
+			else if (position.x == other.position.x && position.y == other.position.y && size.x == other.size.x && size.y == other.size.y)
 				return true;
 			else
 				return false;
-
-		}
-
-		bool operator!=(const Transform* other) const {
-
-			if (position.x != other->position.x || position.y != other->position.y || size.x != other->size.x || size.y != other->size.y)
-				return !(this == *other);
-			else
-				return (this == *other);
 
 		}
 
 		bool operator!=(const Transform& other) const {
 
-			if (position.x == other.position.x || position.y == other.position.y || size.x == other.size.x || size.y == other.size.y)
-				return !(this == other);
+			if (&other == nullptr) {
+
+				Error("Reading from nullptr(transform)");
+				return false;
+
+			}
+			else if (position.x == other.position.x || position.y == other.position.y || size.x == other.size.x || size.y == other.size.y)
+				return false;
 			else
-				return (this == other);
+				return true;
 
 		}
 

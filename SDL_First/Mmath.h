@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
 #define elif else if
 
@@ -53,37 +54,104 @@ class Vector2 {
 
 };
 
-template<typename T>
-class DyArray {
-
-	Uint16 size = 0;
+template <class T>
+class FreeList {
 
 	public:
 
-		T* members;
+		/// Creates a new free list.
+		FreeList();
 
-		DyArray() { members = new T[size]; }
+		/// Inserts an element to the free list and returns an index to it.
+		int insert(const T& element);
 
-		~DyArray() {}
+		// Removes the nth element from the free list.
+		void erase(int n);
 
-		void Add(T Input) {
+		// Removes all elements from the free list.
+		void clear();
 
-			T* ArrayPtrTemp = new T[size + 1];
+		// Returns the range of valid indices.
+		int range() const;
 
-			for (int i = 0; i != size; i++) {
+		// Returns the nth element.
+		T& operator[](int n);
 
-				ArrayPtrTemp[i] = members[i];
+		// Returns the nth element.
+		const T& operator[](int n) const;
 
-			}
+	private:
 
-			ArrayPtrTemp[size] = Input;
+		union FreeElement {
 
-			members = ArrayPtrTemp;
+			T element;
+			int next;
 
-			size++;
+		};
 
-		}
-
-	 size_t GetSize() const { return this->size; }
+		std::vector<FreeElement> data;
+		int first_free;
 
 };
+
+template <class T>
+FreeList<T>::FreeList() : first_free(-1) {}
+
+template <class T>
+int FreeList<T>::insert(const T& element) {
+
+	if (first_free != -1) {
+
+		const int index = first_free;
+		first_free = data[first_free].next;
+		data[index].element = element;
+		return index;
+
+	} 
+	else {
+
+		FreeElement fe;
+		fe.element = element;
+		data.push_back(fe);
+		return static_cast<int>(data.size() - 1);
+
+	}
+
+}
+
+template <class T>
+void FreeList<T>::erase(int n) {
+
+	data[n].next = first_free;
+	first_free = n;
+
+}
+
+template <class T>
+void FreeList<T>::clear() {
+
+	data.clear();
+	first_free = -1;
+
+}
+
+template <class T>
+int FreeList<T>::range() const {
+
+	return static_cast<int>(data.size());
+
+}
+
+template <class T>
+T& FreeList<T>::operator[](int n) {
+
+	return data[n].element;
+
+}
+
+template <class T>
+const T& FreeList<T>::operator[](int n) const {
+
+	return data[n].element;
+
+}

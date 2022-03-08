@@ -10,15 +10,21 @@ void Debug(const char* Log) {
 
 }
 
+void Debug(const float& Log) {
+
+	std::cout << "Log: " << Log << "\n";
+
+}
+
 void Error(const char* Log) {
 
-	static DyArray<const char*> ErrorCache;
+	static FreeList<const char*> ErrorCache;
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 
-	for (int i = 0; i < ErrorCache.GetSize(); i++) {
+	for (int i = 0; i < ErrorCache.range(); i++) {
 
-		if (ErrorCache.members[i] == Log && CheckErrorCache == true) {
+		if (ErrorCache[i] == Log && CheckErrorCache == true) {
 
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			return;
@@ -28,7 +34,7 @@ void Error(const char* Log) {
 	}
 
 	std::cout << "Error: " << Log << "\n";
-	ErrorCache.Add(Log);
+	ErrorCache.insert(Log);
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 

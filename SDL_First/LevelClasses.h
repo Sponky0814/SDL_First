@@ -19,6 +19,10 @@ class Cell {
 
 class Level {
 
+	private:
+
+		int size;
+
 	public:
 
 		Transform BlockMap[256][128];
@@ -31,7 +35,7 @@ class Level {
 
 		Level(int* TileMap, int resX, int resY) { 
 			
-			int size = 0;
+			size = 0;
 
 			for (int i = 0; i < resX * resY; i++) {
 
@@ -61,8 +65,6 @@ class Level {
 
 					Block.transform.position.x = Block.transform.size.x * column;
 
-					Debug();
-
 					if (TileMap[CellId] == 1) {
 
 						cellArray[cellArrayTurn].cellTransform.position.x = Block.transform.position.x;
@@ -84,7 +86,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -102,7 +104,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -131,7 +133,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -149,7 +151,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -177,7 +179,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -195,7 +197,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -223,7 +225,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -241,7 +243,7 @@ class Level {
 
 								for (int i = 0; i < 128; i++) {
 
-									if (BlockMap[b][i] == new Transform(0, 0, 0, 0)) {
+									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
 										BlockMap[b][i] = Line;
 										break;
@@ -270,5 +272,7 @@ class Level {
 			}
 
 		}
+
+		int GetCellArraySize() { return size; }
 
 };

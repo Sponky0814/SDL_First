@@ -25,36 +25,28 @@ void Draw(gameObject gO, SDL_Renderer* Renderer, SDL_Rect Resolution) {
 
 }
 
-Transform* GetBorders(gameObject tempObject) {
+gameObject GetCollisions(gameObject Obj, Level level) {
 
-	Transform ColZone[4]{};
+    Transform MainBorders[4];
 
 	//a
-	ColZone[0].position.x = tempObject.transform.position.x - 1;
-	ColZone[0].position.y = tempObject.transform.position.y;
-	ColZone[0].size.y = tempObject.transform.size.y;
+	MainBorders[0].position.x = Obj.transform.position.x - 1;
+	MainBorders[0].position.y = Obj.transform.position.y;
+	MainBorders[0].size.y = Obj.transform.size.y;
 
 	//b
-	ColZone[1].position.x = tempObject.transform.position.x;
-	ColZone[1].position.y = tempObject.transform.position.y + tempObject.transform.size.y;
-	ColZone[1].size.x = tempObject.transform.size.x;
+	MainBorders[1].position.x = Obj.transform.position.x;
+	MainBorders[1].position.y = Obj.transform.position.y + Obj.transform.size.y;
+	MainBorders[1].size.x = Obj.transform.size.x;
 
 	//c
-	ColZone[2].position.x = tempObject.transform.position.x + tempObject.transform.size.x;
-	ColZone[2].position.y = tempObject.transform.position.y;
-	ColZone[2].size.y = tempObject.transform.size.y;
+	MainBorders[2].position.x = Obj.transform.position.x + Obj.transform.size.x;
+	MainBorders[2].position.y = Obj.transform.position.y;
+	MainBorders[2].size.y = Obj.transform.size.y;
 
 	//d
-	ColZone[3].position = tempObject.transform.position;
-	ColZone[3].size.x = tempObject.transform.size.x;
-
-	return ColZone;
-
-}
-
-gameObject GetCollisions(gameObject Obj, Transform BlockMap[256][128]) {
-
-    Transform* MainBorders = GetBorders(Obj);
+	MainBorders[3].position = Obj.transform.position;
+	MainBorders[3].size.x = Obj.transform.size.x;
 
 	Obj.collider = new Collider;
 
@@ -83,16 +75,14 @@ gameObject GetCollisions(gameObject Obj, Transform BlockMap[256][128]) {
 		if (A > 256)
 			A = 256;
 
-		if (BlockMap[A][i] != new Transform(0,0,0,0)) {
+		if (level.BlockMap[A][i] != *new Transform(0,0,0,0) &&
+			level.BlockMap[A][i].position.x < MainBorders[1].position.x &&
+			level.BlockMap[A][i].position.x + level.BlockMap[A][i].size.x < MainBorders[1].position.x &&
+			level.BlockMap[A][i].position.y - 1 == MainBorders[1].position.y) {
 
-			if (BlockMap[A][i].position.x < MainBorders[1].position.x && BlockMap[A][i].position.x + BlockMap[A][i].size.x <
-				MainBorders[1].position.x && BlockMap[A][i].position.y - 1 == MainBorders[1].position.y) {
-
-				Obj.collider.b = true;
-				Obj.transform.position.y = BlockMap[A][i].position.y - 1;
-				Obj.velocity.y = 0;
-
-			}
+			Obj.collider.b = true;
+			Obj.transform.position.y = level.BlockMap[A][i].position.y - 1;
+			Obj.velocity.y = 0;
 
 		}
 
