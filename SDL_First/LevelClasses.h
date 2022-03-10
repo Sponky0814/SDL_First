@@ -2,6 +2,7 @@
 #include <iostream>
 #include "PhysicsClasses.h"
 #include "Log.h"
+#include "Mmath.h"
 
 class Cell {
 
@@ -19,6 +20,83 @@ class Cell {
 
 class Level {
 
+private:
+
+
+
+public:
+
+	FreeArray<Transform> BlockMap[256];
+
+	FreeArray<Cell> cellArray;
+
+	Level() {}
+
+	~Level() {}
+
+	Level(int* TileMap, const int& resX, const int& resY) { 
+			
+		int CellId = NULL;
+		Transform Block;
+
+		Block.size.x = 60;
+		int xMultiplyer = 1;
+		Block.size.y = 60;
+
+		for (int row = 0; row < resY; row++) {
+
+			Block.position.y = Block.size.y * row;
+
+			for (int column = 0; column < resX; column++) {
+
+				Block.position.x = Block.size.x * column;
+
+				switch (TileMap[CellId]) {
+
+				case 1:
+
+					cellArray.insert(*new Cell(1, Block));
+
+					for (int i = NULL; i != -1;) {
+
+						if (TileMap[CellId + 1] == 1 && CellId + 1 != 32) {
+
+							xMultiplyer++;
+							CellId++;
+
+						}
+						else
+							i = -1;
+
+					}
+
+					//Block.size.x = Block.size.x * xMultiplyer;
+
+
+
+					//Block.size.x = Block.size.x / xMultiplyer;
+
+					break;
+
+				default:
+
+					break;
+
+				}
+
+				CellId++;
+
+			}
+
+		}
+
+	}
+
+};
+
+/*
+
+	
 private:
 
 	int size;
@@ -164,98 +242,93 @@ public:
 					}
 
 					//ABOVE
-					if (CellId - resX > 0 &&
-						TileMap[CellId - resX] == 0) {
+					Line.size.y = 1;
+					Line.size.x = Block.transform.size.x;
+					Line.position = Block.transform.position;
 
-						Line.size.y = 1;
-						Line.size.x = Block.transform.size.x;
-						Line.position = Block.transform.position;
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16 &&
+						CellId - resX > 0 && TileMap[CellId - resX] == 0) {
 
-						if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
+						int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
 
-							int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
+						for (int i = 0; i < 128; i++) {
 
-							for (int i = 0; i < 128; i++) {
+							if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
-								if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-									BlockMap[b][i] = Line;
-									break;
-
-								}
+								BlockMap[b][i] = Line;
+								break;
 
 							}
-
-						}
-
-						if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
-							ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
-
-							int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
-
-							for (int i = 0; i < 128; i++) {
-
-								if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-									BlockMap[b][i] = Line;
-									break;
-
-								}
-
-							}
-
 
 						}
 
 					}
+
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) && CellId - resX > 0 && TileMap[CellId - resX] == 0 ||
+						ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128) && CellId - resX > 0 && TileMap[CellId - resX] == 0) {
+
+						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+
+					}
+
 
 					//BELOW
-					if (CellId + resX < resX * resY &&
-						TileMap[CellId + resX] == 0) {
+					Line.size.y = 1;
+					Line.size.x = Block.transform.size.x;
+					Line.position.y = Block.transform.position.y + Block.transform.size.y;
 
-						Line.size.y = 1;
-						Line.size.x = Block.transform.size.x;
-						Line.position.y = Block.transform.position.y + Block.transform.size.y;
+					if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16 && 
+						CellId + resX < resX * resY && TileMap[CellId + resX] == 0) {
 
-						if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
+						int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
 
-							int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
+						for (int i = 0; i < 128; i++) {
 
-							for (int i = 0; i < 128; i++) {
+							if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
 
-								if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-									BlockMap[b][i] = Line;
-									break;
-
-								}
+								BlockMap[b][i] = Line;
+								break;
 
 							}
-
-						}
-
-						if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
-							ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
-
-							int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
-
-							for (int i = 0; i < 128; i++) {
-
-								if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-									BlockMap[b][i] = Line;
-									break;
-
-								}
-
-							}
-
 
 						}
 
 					}
 
-				default:
+					if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) &&
+						CellId + resX < resX * resY && TileMap[CellId + resX] == 0 ||
+						ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128) &&
+						CellId + resX < resX * resY && TileMap[CellId + resX] == 0) {
+
+						int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
+
+						for (int i = 0; i < 128; i++) {
+
+							if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
+
+								BlockMap[b][i] = Line;
+								break;
+
+							}
+
+						}
+
+
+					}
+
+					default:
 
 					Error("Illegal Cell type!");
 					break;
@@ -272,242 +345,4 @@ public:
 
 		int GetCellArraySize() { return size; }
 
-};
-
-/*size = 0;
-
-			for (int i = 0; i < resX * resY; i++) {
-
-				if (TileMap[i] != 0)
-					size++;
-
-			}
-
-			//Increments every time a part of the cell array is changed
-			int cellArrayTurn = 0;
-
-			gameObject Block;
-			Transform Line;
-
-			Block.transform.size.x = 60;
-			Block.transform.size.y = 60;
-
-			int CellId = NULL;
-
-			cellArray = new Cell[size];
-
-			for (int row = 0; row < resY; row++) {
-
-				Block.transform.position.y = Block.transform.size.y * row;
-
-				for (int column = 0; column < resX; column++) {
-
-					Block.transform.position.x = Block.transform.size.x * column;
-
-					if (TileMap[CellId] == 1) {
-
-						cellArray[cellArrayTurn].cellTransform.position.x = Block.transform.position.x;
-						cellArray[cellArrayTurn].cellTransform.position.y = Block.transform.position.y;
-						cellArray[cellArrayTurn].type = 1;
-						cellArrayTurn++;
-
-						//LEFT
-						if (CellId - 1 >= 0 && TileMap[CellId - 1] == 0 ||
-							CellId % resX == 0) {
-
-							Line.size.x = 1;
-							Line.size.y = Block.transform.size.y;
-							Line.position = Block.transform.position;
-
-							if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
-
-								int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-							}
-
-							if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
-								ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
-
-								int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-
-							}
-
-						}
-
-						//RIGHT
-						if (TileMap[CellId + 1] == 0 ||
-							CellId % (resX - 1) == 0 && CellId != 0) {
-
-							Line.size.x = 1;
-							Line.size.y = Block.transform.size.y;
-							Line.position.x = Block.transform.position.x;
-							Line.position.x = Block.transform.position.x + Block.transform.size.x;
-
-							if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
-
-								int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-							}
-
-							if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
-								ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
-
-								int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-
-							}
-
-						}
-
-						//ABOVE
-						if (CellId - resX > 0 &&
-							TileMap[CellId - resX] == 0) {
-
-							Line.size.y = 1;
-							Line.size.x = Block.transform.size.x;
-							Line.position = Block.transform.position;
-
-							if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
-
-								int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-							}
-
-							if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
-								ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
-
-								int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-
-							}
-
-						}
-
-						//BELOW
-						if (CellId + resX < resX * resY &&
-							TileMap[CellId + resX] == 0) {
-
-							Line.size.y = 1;
-							Line.size.x = Block.transform.size.x;
-							Line.position.y = Block.transform.position.y + Block.transform.size.y;
-
-							if ((int)Line.position.x / 128 < 16 && (int)Line.position.y / 128 < 16) {
-
-								int b = (int)(ceil(Line.position.x / 128) + 32 * ceil(Line.position.y / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-							}
-
-							if (ceil(Line.position.x / 128) != ceil((Line.position.x + Line.size.x) / 128) ||
-								ceil(Line.position.y / 128) != ceil((Line.position.y + Line.size.y) / 128)) {
-
-								int b = (int)(ceil((Line.position.x + Line.size.x) / 128) + 32 * ceil((Line.position.y + Line.size.y) / 128));
-
-								for (int i = 0; i < 128; i++) {
-
-									if (BlockMap[b][i] == *new Transform(0, 0, 0, 0)) {
-
-										BlockMap[b][i] = Line;
-										break;
-
-									}
-
-								}
-
-
-							}
-
-						}
-
-					}
-					elif(TileMap[CellId] != 0) {
-
-						Error("Illegal Cell type!");
-						break;
-
-					}
-
-					CellId++;
-
-				}
-
-			}
-
-		}*/
+};*/

@@ -36,6 +36,8 @@ class Transform {
 		Vector2<float> size;
 
 		Transform() { position.x = 0; position.y = 0; size.x = 0; size.y = 0; }
+		
+		~Transform() {}
 
 		Transform(float x, float y, float w, float h) {
 			position = new Vector2<float>(x, y); size = new Vector2<float>(w, h);

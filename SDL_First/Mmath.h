@@ -55,12 +55,12 @@ class Vector2 {
 };
 
 template <class T>
-class FreeList {
+class FreeArray {
 
 	public:
 
 		/// Creates a new free list.
-		FreeList();
+		FreeArray();
 
 		/// Inserts an element to the free list and returns an index to it.
 		int insert(const T& element);
@@ -87,6 +87,9 @@ class FreeList {
 			T element;
 			int next;
 
+			FreeElement() {};
+			~FreeElement() {};
+
 		};
 
 		std::vector<FreeElement> data;
@@ -95,10 +98,10 @@ class FreeList {
 };
 
 template <class T>
-FreeList<T>::FreeList() : first_free(-1) {}
+FreeArray<T>::FreeArray() : first_free(-1) {}
 
 template <class T>
-int FreeList<T>::insert(const T& element) {
+int FreeArray<T>::insert(const T& element) {
 
 	if (first_free != -1) {
 
@@ -120,7 +123,7 @@ int FreeList<T>::insert(const T& element) {
 }
 
 template <class T>
-void FreeList<T>::erase(int n) {
+void FreeArray<T>::erase(int n) {
 
 	data[n].next = first_free;
 	first_free = n;
@@ -128,7 +131,7 @@ void FreeList<T>::erase(int n) {
 }
 
 template <class T>
-void FreeList<T>::clear() {
+void FreeArray<T>::clear() {
 
 	data.clear();
 	first_free = -1;
@@ -136,22 +139,23 @@ void FreeList<T>::clear() {
 }
 
 template <class T>
-int FreeList<T>::range() const {
+int FreeArray<T>::range() const {
 
 	return static_cast<int>(data.size());
 
 }
 
 template <class T>
-T& FreeList<T>::operator[](int n) {
+T& FreeArray<T>::operator[](int n) {
 
 	return data[n].element;
 
 }
 
 template <class T>
-const T& FreeList<T>::operator[](int n) const {
+const T& FreeArray<T>::operator[](int n) const {
 
 	return data[n].element;
 
 }
+

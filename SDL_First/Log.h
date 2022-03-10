@@ -18,7 +18,7 @@ void Debug(const float& Log) {
 
 void Error(const char* Log) {
 
-	static FreeList<const char*> ErrorCache;
+	static FreeArray<const char*> ErrorCache;
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 

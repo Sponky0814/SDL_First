@@ -11,7 +11,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 	Block.transform.size.x = 60;
 	Block.transform.size.y = 60;
 
-	for (int i = 0; i != level.GetCellArraySize(); i++) {
+	for (int i = 0; i != level.cellArray.range(); i++) {
 
 		switch (level.cellArray[i].type) {
 
