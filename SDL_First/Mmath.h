@@ -57,6 +57,22 @@ class Vector2 {
 template <class T>
 class FreeArray {
 
+	private:
+
+		union FreeElement {
+
+			T element;
+			int next;
+
+			FreeElement() {};
+			~FreeElement() {};
+
+		};
+
+		int first_free;
+
+		std::vector<FreeElement> data;
+
 	public:
 
 		/// Creates a new free list.
@@ -79,21 +95,6 @@ class FreeArray {
 
 		// Returns the nth element.
 		const T& operator[](int n) const;
-
-	private:
-
-		union FreeElement {
-
-			T element;
-			int next;
-
-			FreeElement() {};
-			~FreeElement() {};
-
-		};
-
-		std::vector<FreeElement> data;
-		int first_free;
 
 };
 

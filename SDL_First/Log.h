@@ -2,13 +2,8 @@
 #include "Mmath.h"
 #include <Windows.h>
 
-void mLog(const char* Log) {
-#ifdef _DEBUG
-	std::cout << "Log: " << Log << "\n";
-#endif
-}
-
-void mLog(const float& Log) {
+template<class T>
+void mLog(T Log) {
 #ifdef _DEBUG
 	std::cout << "Log: " << Log << "\n";
 #endif

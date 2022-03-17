@@ -63,16 +63,10 @@ public:
 				switch (TileMap[CellId]) {
 
 				case 1:
-					
-					cellInsert.cellTransform.position.x = Block.position.x;
-					cellInsert.cellTransform.position.y = Block.position.y;
-					cellInsert.cellTransform.size.x = Block.size.x;
-					cellInsert.cellTransform.size.y = Block.size.y;
-					cellInsert.type = 1;
 
 					while(true) {
 
-						if (TileMap[CellId + 1] == 1 && CellId + 1 != 32) {
+						if (TileMap[CellId + 1] == 1 && CellId != 31) {
 
 							xMultiplyer++;
 							CellId++;
@@ -83,11 +77,13 @@ public:
 
 					}
 
-					Block.size.x = Block.size.x * xMultiplyer;
+					cellInsert.cellTransform.position.x = Block.position.x;
+					cellInsert.cellTransform.position.y = Block.position.y;
+					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
+					cellInsert.cellTransform.size.y = Block.size.y;
+					cellInsert.type = 1;
 
 					cellArray.insert(cellInsert);
-
-					Block.size.x = Block.size.x / xMultiplyer;
 
 					break;
 
@@ -97,6 +93,7 @@ public:
 
 				}
 
+				xMultiplyer = 1;
 				CellId++;
 
 			}

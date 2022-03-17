@@ -8,7 +8,8 @@
 #include "Mmath.h"
 #include "Log.h"
 
-SDL_Rect Screen = { 0, 0, 1920, 1080 };
+//SDL_Rect Screen = { 0, 0, 1920, 1080 };
+SDL_Rect Screen = { 0, 0, 3440, 1440 };
 
 SDL_Window* window = SDL_CreateWindow("Muon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Screen.w, Screen.h, SDL_WINDOW_SHOWN);
 SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
@@ -28,7 +29,7 @@ SDL_Event* event = new SDL_Event;
 
 gameObject Player;
 
-Level Level1(new int[576]{
+Level Level1(new int[576] {
 
 		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

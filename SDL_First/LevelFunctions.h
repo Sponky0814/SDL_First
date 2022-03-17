@@ -22,15 +22,23 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 			case 1:
 				
-				for (int j = level.cellArray[i].cellTransform.size.x / 60;;) {
+				for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
 
-					Block.transform.position.x = level.cellArray[i].cellTransform.position.x;
+					Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+					mLog("#################");
+					mLog(Block.transform.position.x);
 					Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
+					mLog(Block.transform.position.y);
+					mLog("#################");
 					Block.texture = textures.GetCrystal();
-				
-				}
+					
 
-				Draw(Block, renderer, Resolution);
+					Sleep(250);
+					Draw(Block, renderer, Resolution);
+					SDL_RenderPresent(renderer);
+					//mLog(j);
+
+				}
 
 				break;
 

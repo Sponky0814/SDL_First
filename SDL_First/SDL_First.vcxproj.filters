@@ -39,4 +39,9 @@
       <UniqueIdentifier>{43b25c05-063e-4478-89a7-8e9969a587a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Source1.txt">
+      <Filter>HeaderFiles</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
