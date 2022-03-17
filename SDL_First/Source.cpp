@@ -56,7 +56,7 @@ Level Level1(new int[576]{
 //Run code every frame
 void Update() {
 	
-	Debug("App initialized");
+	mLog("App initialized");
 
 	Game_runnig = true;
 
@@ -170,7 +170,7 @@ void Update() {
 				event->type == SDL_WINDOWEVENT && event->window.event == SDL_WINDOWEVENT_CLOSE) {
 
 				Game_runnig = false;
-				Debug("Quitting...");
+				mLog("Quitting...");
 
 			}
 
@@ -186,7 +186,7 @@ int main(int argc, char* argv[]) {
 	//Set Console color to bright white
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-	Debug("Initializing app...");
+	mLog("Initializing app...");
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -201,7 +201,7 @@ int main(int argc, char* argv[]) {
 
 	Update();
 
-	Debug("Quit");
+	mLog("Quit");
 
 	return 0;
 

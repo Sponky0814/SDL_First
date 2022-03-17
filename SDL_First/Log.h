@@ -2,21 +2,21 @@
 #include "Mmath.h"
 #include <Windows.h>
 
-#define CheckErrorCache true
-
-void Debug(const char* Log) {
-
+void mLog(const char* Log) {
+#ifdef _DEBUG
 	std::cout << "Log: " << Log << "\n";
-
+#endif
 }
 
-void Debug(const float& Log) {
-
+void mLog(const float& Log) {
+#ifdef _DEBUG
 	std::cout << "Log: " << Log << "\n";
-
+#endif
 }
 
-void Error(const char* Log) {
+void Error(const char* Log, bool CheckErrorCache) {
+
+#ifdef _DEBUG
 
 	static FreeArray<const char*> ErrorCache;
 
@@ -37,5 +37,5 @@ void Error(const char* Log) {
 	ErrorCache.insert(Log);
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
+#endif
 }

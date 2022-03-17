@@ -47,7 +47,7 @@ class Transform {
 
 			if (&other == nullptr) {
 
-				Error("Reading from nullptr(transform)");
+				Error("Reading from nullptr(transform)", false);
 				return false;
 
 			}
@@ -62,7 +62,7 @@ class Transform {
 
 			if (&other == nullptr) {
 
-				Error("Reading from nullptr(transform)");
+				Error("Reading from nullptr(transform)", false);
 				return false;
 
 			}
@@ -70,6 +70,17 @@ class Transform {
 				return false;
 			else
 				return true;
+
+		}
+
+		Transform operator = (const Transform& other) {
+
+			this->position.x = other.position.x;
+			this->position.y = other.position.y;
+			this->size.x = other.size.x;
+			this->size.y = other.size.y;
+
+			return other;
 
 		}
 

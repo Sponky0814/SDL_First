@@ -19,7 +19,7 @@ SDL_Rect* ToRect(const Transform t) {
 void Draw(gameObject gO, SDL_Renderer* Renderer, SDL_Rect Resolution) {
 
 	if (gO.texture == nullptr)
-		Error("Empty texture");
+		Error("Empty texture", false);
 
 	SDL_RenderCopy(Renderer, gO.texture, &Resolution, ToRect(gO.transform));
 
@@ -70,6 +70,7 @@ gameObject GetCollisions(gameObject Obj, Level level) {
 	//Upper right
 	int D = x1 + y0;
 
+	/*
 	for (int i = 0; i < 128; i++) {
 
 		if (A > 256)
@@ -87,6 +88,7 @@ gameObject GetCollisions(gameObject Obj, Level level) {
 		}
 
 	}
+	*/
 
 	return Obj;
 

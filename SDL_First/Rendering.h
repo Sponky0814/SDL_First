@@ -15,7 +15,7 @@ SDL_Texture* LoadTexture(const char* file, SDL_Renderer* Renderer) {
 	SDL_FreeSurface(LoadedSurface);
 
 	if (loadingTexture == nullptr) {
-		Error(SDL_GetError());
+		Error(SDL_GetError(), false);
 	}
 
 	return loadingTexture;

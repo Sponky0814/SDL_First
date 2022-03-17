@@ -12,9 +12,16 @@ class Cell {
 
 		Cell() {}
 
-		Cell(int t, Transform ct) { type = t; cellTransform = ct; }
+		Cell(Transform ct, int t) { cellTransform = ct; type = t; }
 
-		Cell operator=(const Cell& other) const { return other; }
+		Cell operator=(const Cell& other) { 
+			
+			this->cellTransform = other.cellTransform;
+			this->type = other.type;
+
+			return other; 
+		
+		}
 
 };
 
@@ -43,6 +50,8 @@ public:
 		int xMultiplyer = 1;
 		Block.size.y = 60;
 
+		Cell cellInsert;
+
 		for (int row = 0; row < resY; row++) {
 
 			Block.position.y = Block.size.y * row;
@@ -54,10 +63,14 @@ public:
 				switch (TileMap[CellId]) {
 
 				case 1:
+					
+					cellInsert.cellTransform.position.x = Block.position.x;
+					cellInsert.cellTransform.position.y = Block.position.y;
+					cellInsert.cellTransform.size.x = Block.size.x;
+					cellInsert.cellTransform.size.y = Block.size.y;
+					cellInsert.type = 1;
 
-					cellArray.insert(*new Cell(1, Block));
-
-					for (int i = NULL; i != -1;) {
+					while(true) {
 
 						if (TileMap[CellId + 1] == 1 && CellId + 1 != 32) {
 
@@ -66,15 +79,15 @@ public:
 
 						}
 						else
-							i = -1;
+							break;
 
 					}
 
-					//Block.size.x = Block.size.x * xMultiplyer;
+					Block.size.x = Block.size.x * xMultiplyer;
 
+					cellArray.insert(cellInsert);
 
-
-					//Block.size.x = Block.size.x / xMultiplyer;
+					Block.size.x = Block.size.x / xMultiplyer;
 
 					break;
 
