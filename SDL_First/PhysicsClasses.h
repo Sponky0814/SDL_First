@@ -4,31 +4,7 @@
 #include "Rendering.h"
 #include "Log.h"
 
-class Collider {
-
-	public:
-		bool a, b, c, d;
-
-		Collider() { a = false; b = false; c = false; d = false; }
-
-		Collider(bool A, bool B, bool C, bool D) {
-			a = A; b = B; c = C; d = D;
-		}
-
-		Collider operator=(const Collider& other) const {
-
-			return other;
-
-		}
-
-		Collider operator=(const Collider* other) const {
-
-			return *other;
-
-		}
-
-};
-
+//Stores stores two Vector2s used for storing position and size
 class Transform {
 
 	public:
@@ -40,57 +16,28 @@ class Transform {
 		~Transform() {}
 
 		Transform(float x, float y, float w, float h) {
-			position = new Vector2<float>(x, y); size = new Vector2<float>(w, h);
+			position = *new Vector2<float>(x, y); size = *new Vector2<float>(w, h);
 		}
 
-		bool operator==(const Transform& other) const {
-
-			if (&other == nullptr) {
-
-				Error("Reading from nullptr(transform)", false);
-				return false;
-
-			}
-			else if (position.x == other.position.x && position.y == other.position.y && size.x == other.size.x && size.y == other.size.y)
-				return true;
-			else
-				return false;
-
-		}
-
-		bool operator!=(const Transform& other) const {
-
-			if (&other == nullptr) {
-
-				Error("Reading from nullptr(transform)", false);
-				return false;
-
-			}
-			else if (position.x == other.position.x || position.y == other.position.y || size.x == other.size.x || size.y == other.size.y)
-				return false;
-			else
-				return true;
-
-		}
-
-		Transform operator = (const Transform& other) {
+		void operator=(const Transform& other) {
 
 			this->position.x = other.position.x;
 			this->position.y = other.position.y;
 			this->size.x = other.size.x;
 			this->size.y = other.size.y;
 
-			return other;
+			return;
 
 		}
 
 };
 
+//Stores a transform, a Vector4 for storing collisions, a texture, the velocity of the object and it's name 
 class gameObject {
 
 	public:
 		Transform transform{};
-		Collider collider{};
+		Vector4<bool> collider;
 		SDL_Texture* texture{};
 		Vector2<float> velocity;
 

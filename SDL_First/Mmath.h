@@ -4,6 +4,7 @@
 
 #define elif else if
 
+//Two dimentional vector
 template<typename T>
 class Vector2 {
 
@@ -22,24 +23,9 @@ class Vector2 {
 
 		~Vector2() {}
 
-		Vector2* operator=(Vector2<T>* other) const {
-
-			return other;
-
-		}
-
 		Vector2 operator=(const Vector2<T>& other) const {
 
 			return other;
-
-		}
-
-		bool operator!=(const Vector2<T>* other) const {
-
-			if (x != other->x || y != other->y)
-				return !(this == *other);
-			else
-				return (this == *other);
 
 		}
 
@@ -51,6 +37,27 @@ class Vector2 {
 				return (this == *other);
 
 		}
+
+};
+
+//Four dimentional vector
+template<typename T>
+class Vector4 {
+
+public:
+	T a, b, c, d;
+
+	Vector4() {}
+
+	Vector4(T A, T B, T C, T D) {
+		a = A; b = B; c = C; d = D;
+	}
+
+	Vector4 operator=(const Vector4& other) const {
+
+		return other;
+
+	}
 
 };
 

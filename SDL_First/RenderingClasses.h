@@ -4,7 +4,7 @@
 
 extern SDL_Renderer* renderer;
 
-//Singleton
+//Singleton that returns textures
 class Textures {
 
 	public:

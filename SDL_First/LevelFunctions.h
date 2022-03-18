@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 
+//Draws a level on the screen
 void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Textures& textures) {
 
 	gameObject Block;

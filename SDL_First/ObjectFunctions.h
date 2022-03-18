@@ -4,6 +4,7 @@
 #include "PhysicsClasses.h"
 #include "Mmath.h"
 
+//Turns a transform into a SDL_Rect
 SDL_Rect* ToRect(const Transform t) {
 
 	SDL_Rect* rect = new SDL_Rect;
@@ -16,6 +17,7 @@ SDL_Rect* ToRect(const Transform t) {
 
 }
 
+//Draws a gameObject
 void Draw(gameObject gO, SDL_Renderer* Renderer, SDL_Rect Resolution) {
 
 	if (gO.texture == nullptr)
@@ -25,6 +27,7 @@ void Draw(gameObject gO, SDL_Renderer* Renderer, SDL_Rect Resolution) {
 
 }
 
+//Calculates collisions
 gameObject GetCollisions(gameObject Obj, Level level) {
 
     Transform MainBorders[4];
@@ -48,7 +51,7 @@ gameObject GetCollisions(gameObject Obj, Level level) {
 	MainBorders[3].position = Obj.transform.position;
 	MainBorders[3].size.x = Obj.transform.size.x;
 
-	Obj.collider = new Collider;
+	Obj.collider = *new Vector4<bool>;
 
 	int x0 = (int)ceil(Obj.transform.position.x / 128);
 
