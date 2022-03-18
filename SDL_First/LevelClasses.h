@@ -33,9 +33,9 @@ private:
 
 public:
 
-	FreeArray<Transform> BlockMap[256];
+	FreeArray<Transform> BlockMap[256]; //Stores objects for collision in a grid
 
-	FreeArray<Cell> cellArray;
+	FreeArray<Cell> cellArray; //Stores objects for rendering
 
 	Level() {}
 
@@ -43,7 +43,6 @@ public:
 
 	Level(int* TileMap, const int& resX, const int& resY) { 
 			
-		int CellId = NULL;
 		Transform Block;
 
 		Block.size.x = 60;
@@ -52,28 +51,42 @@ public:
 
 		Cell cellInsert;
 
+		int j = 0;
+
 		for (int row = 0; row < resY; row++) {
 
 			Block.position.y = Block.size.y * row;
 
 			for (int column = 0; column < resX; column++) {
 
-				Block.position.x = Block.size.x * column;
-
-				switch (TileMap[CellId]) {
+				switch (TileMap[row * resX + column]) {
 
 				case 1:
 
+					Block.position.x = Block.size.x * column;
+
+					if (row * resX + column == 544 || row * resX + column == 0)
+					j = 0;
+
+					if (TileMap[544] == 1)
+						j = 0;
+
+					j = 0;
+
 					while(true) {
 
-						if (TileMap[CellId + 1] == 1 && CellId != 31) {
+						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
 
 							xMultiplyer++;
-							CellId++;
+							column++;
+							j++;
 
 						}
-						else
+						else {
+
 							break;
+
+						}
 
 					}
 
@@ -94,7 +107,7 @@ public:
 				}
 
 				xMultiplyer = 1;
-				CellId++;
+				column++;
 
 			}
 
