@@ -26,18 +26,46 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
 
 				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
-				//mLog("#################");
-				//mLog(Block.transform.position.x);
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				//mLog(Block.transform.position.y);
-				//mLog("#################");
 				Block.texture = textures.GetCrystal();
-					
-
-				//Sleep(250);
 				Draw(Block, renderer, Resolution);
-				//SDL_RenderPresent(renderer);
-				//mLog(j);
+
+			}
+
+			break;
+
+		case 2:
+
+			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
+
+				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
+				Block.texture = textures.GetRed();
+				Draw(Block, renderer, Resolution);
+
+			}
+
+		case 3:
+
+			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
+
+				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
+				Block.texture = textures.GetGreen();
+				Draw(Block, renderer, Resolution);
+
+			}
+
+			break;
+
+		case 4:
+
+			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
+
+				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
+				Block.texture = textures.GetBlue();
+				Draw(Block, renderer, Resolution);
 
 			}
 

@@ -8,8 +8,8 @@
 #include "Mmath.h"
 #include "Log.h"
 
-//SDL_Rect Screen = { 0, 0, 1920, 1080 };
-SDL_Rect Screen = { 0, 0, 3440, 1440 };
+SDL_Rect Screen = { 0, 0, 1920, 1080 };
+//SDL_Rect Screen = { 0, 0, 3440, 1440 };
 
 SDL_Window* window = SDL_CreateWindow("Muon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Screen.w, Screen.h, SDL_WINDOW_SHOWN);
 SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
@@ -29,14 +29,14 @@ SDL_Event* event = new SDL_Event;
 
 gameObject Player;
 
-Level Level1(new int[576] {
+Level* Level1 = new Level(new int[576] {
 
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -155,11 +155,20 @@ void Update() {
 		Player.transform.position.y += (int)Player.velocity.y * 2;
 
 		//Renders texure on screen
-		Player = GetCollisions(Player, Level1);
+		//Player = GetCollisions(Player, *Level1);
+
+		if (Player.transform.position.y + Player.transform.size.y > 1020) {
+
+			Player.transform.position.y = 924.1f;
+			Player.collider.b = true;
+
+		}
+		else
+			Player.collider.b = false;
 
 		SDL_RenderClear(renderer);
 
-		DrawLevel(Level1, renderer, Screen, Textures::Get());
+		DrawLevel(*Level1, renderer, Screen, Textures::Get());
 		Draw(Player, renderer, Screen);
 
 		SDL_RenderPresent(renderer);
@@ -198,7 +207,7 @@ int main(int argc, char* argv[]) {
 	Player.transform.size.y = 96;
 	Player.transform.position.x = 487;
 	Player.transform.position.y = 700;
-	Player.texture = LoadTexture("Images/Lukanguz.png", renderer);
+	Player.texture = LoadTexture("Images/Player.png", renderer);
 
 	Update();
 

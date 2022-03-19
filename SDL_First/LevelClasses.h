@@ -31,7 +31,7 @@ class Level {
 
 public:
 
-	FreeArray<Transform> BlockMap[256]; //Stores objects for collision in a grid
+	FreeArray<Transform> BlockMap[1024]; //Stores objects for collision in a grid
 
 	FreeArray<Cell> cellArray; //Stores objects for rendering
 
@@ -48,6 +48,8 @@ public:
 		Block.size.y = 60;
 
 		Cell cellInsert;
+
+		int Len = 0;
 
 		for (int row = 0; row < resY; row++) {
 
@@ -67,6 +69,7 @@ public:
 
 							xMultiplyer++;
 							column++;
+							Len++;
 
 						}
 						else {
@@ -85,6 +88,123 @@ public:
 
 					cellArray.insert(cellInsert);
 
+					for (int i = 0; i <= ceil(Len * 60 / 128); i++) {
+
+						BlockMap[(int)(ceil(cellInsert.cellTransform.position.x) / 128 + 32 * ceil(cellInsert.cellTransform.position.y / 128) + i)].insert(cellInsert.cellTransform);
+
+					}
+
+					break;
+
+				case 2:
+
+					Block.position.x = Block.size.x * column;
+
+					while (true) {
+
+						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
+
+							xMultiplyer++;
+							column++;
+							Len++;
+
+						}
+						else {
+
+							break;
+
+						}
+
+					}
+
+					cellInsert.cellTransform.position.x = Block.position.x;
+					cellInsert.cellTransform.position.y = Block.position.y;
+					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
+					cellInsert.cellTransform.size.y = Block.size.y;
+					cellInsert.type = 2;
+
+					cellArray.insert(cellInsert);
+
+					for (int i = 0; i <= ceil(Len * 60 / 128); i++) {
+
+						BlockMap[(int)(ceil(cellInsert.cellTransform.position.x) / 128 + 32 * ceil(cellInsert.cellTransform.position.y / 128) + i)].insert(cellInsert.cellTransform);
+
+					}
+
+					break;
+
+				case 3:
+
+					Block.position.x = Block.size.x * column;
+
+					while (true) {
+
+						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
+
+							xMultiplyer++;
+							column++;
+							Len++;
+
+						}
+						else {
+
+							break;
+
+						}
+
+					}
+
+					cellInsert.cellTransform.position.x = Block.position.x;
+					cellInsert.cellTransform.position.y = Block.position.y;
+					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
+					cellInsert.cellTransform.size.y = Block.size.y;
+					cellInsert.type = 3;
+
+					cellArray.insert(cellInsert);
+
+					for (int i = 0; i <= ceil(Len * 60 / 128); i++) {
+
+						BlockMap[(int)(ceil(cellInsert.cellTransform.position.x) / 128 + 32 * ceil(cellInsert.cellTransform.position.y / 128) + i)].insert(cellInsert.cellTransform);
+
+					}
+
+					break;
+
+				case 4:
+
+					Block.position.x = Block.size.x * column;
+
+					while (true) {
+
+						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
+
+							xMultiplyer++;
+							column++;
+							Len++;
+
+						}
+						else {
+
+							break;
+
+						}
+
+					}
+
+					cellInsert.cellTransform.position.x = Block.position.x;
+					cellInsert.cellTransform.position.y = Block.position.y;
+					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
+					cellInsert.cellTransform.size.y = Block.size.y;
+					cellInsert.type = 4;
+
+					cellArray.insert(cellInsert);
+
+					for (int i = 0; i <= ceil(Len * 60 / 128); i++) {
+
+						BlockMap[(int)(ceil(cellInsert.cellTransform.position.x) / 128 + 32 * ceil(cellInsert.cellTransform.position.y / 128) + i)].insert(cellInsert.cellTransform);
+
+					}
+
 					break;
 
 				default:
@@ -93,6 +213,7 @@ public:
 
 				}
 
+				Len = 0;
 				xMultiplyer = 1;
 				column++;
 

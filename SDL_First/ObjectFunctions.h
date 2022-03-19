@@ -27,29 +27,49 @@ void Draw(gameObject gO, SDL_Renderer* Renderer, SDL_Rect Resolution) {
 
 }
 
+//Checks if two transforms collide
+Vector4<bool> checkCollision(Transform A, Transform B) {
+
+	Vector4<bool> Vec;
+
+	//The sides of the rectangles
+	float leftA, leftB;
+	float rightA, rightB;
+	float topA, topB;
+	float bottomA, bottomB;
+
+	//Calculate the sides of Transform A
+	leftA = A.position.x;
+	rightA = A.position.x + A.size.x;
+	topA = A.position.y;
+	bottomA = A.position.y + A.size.y;
+
+	//Calculate the sides of Transform B
+	leftB = B.position.x;
+	rightB = B.position.x + B.size.x;
+	topB = B.position.y;
+	bottomB = B.position.y + B.size.y;
+
+	//If any of the sides from A are outside of B
+	if (bottomA <= topB)
+		Vec.b = true;
+
+	if (topA >= bottomB)
+		Vec.d = true;
+
+	if (rightA <= leftB)
+		Vec.c = true;
+
+	if (leftA >= rightB)
+		Vec.a = true;
+
+	//If none of the sides from A are outside B
+	return Vec;
+
+}
+
 //Calculates collisions
 gameObject GetCollisions(gameObject Obj, Level level) {
-
-    Transform MainBorders[4];
-
-	//a
-	MainBorders[0].position.x = Obj.transform.position.x - 1;
-	MainBorders[0].position.y = Obj.transform.position.y;
-	MainBorders[0].size.y = Obj.transform.size.y;
-
-	//b
-	MainBorders[1].position.x = Obj.transform.position.x;
-	MainBorders[1].position.y = Obj.transform.position.y + Obj.transform.size.y;
-	MainBorders[1].size.x = Obj.transform.size.x;
-
-	//c
-	MainBorders[2].position.x = Obj.transform.position.x + Obj.transform.size.x;
-	MainBorders[2].position.y = Obj.transform.position.y;
-	MainBorders[2].size.y = Obj.transform.size.y;
-
-	//d
-	MainBorders[3].position = Obj.transform.position;
-	MainBorders[3].size.x = Obj.transform.size.x;
 
 	Obj.collider = *new Vector4<bool>;
 
@@ -57,41 +77,117 @@ gameObject GetCollisions(gameObject Obj, Level level) {
 
 	int x1 = (int)ceil((Obj.transform.position.x + Obj.transform.size.x) / 128);
 
-	int y0 = 16 * (int)ceil(Obj.transform.position.y / 128);
+	int y0 = 32 * (int)ceil(Obj.transform.position.y / 128);
 
-	int y1 = 16 * (int)ceil((Obj.transform.position.y + Obj.transform.size.y) / 128);
+	int y1 = 32 * (int)ceil((Obj.transform.position.y + Obj.transform.size.y) / 128);
 
 	//Upper left
 	int A = x0 + y0;
 	
+	if (A > 1023)
+		A = 1023;
+
 	//Lower left
 	int B = x0 + y1;
+
+	if (B > 1023)
+		B = 1023;
 
 	//Lower right
 	int C = x1 + y1;
 
+	if (C > 1023)
+		C = 1023;
+
 	//Upper right
 	int D = x1 + y0;
 
-	/*
-	for (int i = 0; i < 128; i++) {
+	if (D > 1023)
+		D = 1023;
 
-		if (A > 256)
-			A = 256;
+	for (int i = level.BlockMap[A].range() - 1; i > 0; i--) {
 
-		if (level.BlockMap[A][i] != *new Transform(0,0,0,0) &&
-			level.BlockMap[A][i].position.x < MainBorders[1].position.x &&
-			level.BlockMap[A][i].position.x + level.BlockMap[A][i].size.x < MainBorders[1].position.x &&
-			level.BlockMap[A][i].position.y - 1 == MainBorders[1].position.y) {
+		Obj.collider = checkCollision(Obj.transform, level.BlockMap[A][i]);
 
-			Obj.collider.b = true;
-			Obj.transform.position.y = level.BlockMap[A][i].position.y - 1;
-			Obj.velocity.y = 0;
+		if (Obj.collider.a)
+			Obj.transform.position.x = level.BlockMap[A][i].position.x + level.BlockMap[A][i].size.x + 1;
+		
+		if (Obj.collider.b)
+			Obj.transform.position.y = level.BlockMap[A][i].position.y + 1;
+
+		if (Obj.collider.c)
+			Obj.transform.position.x = level.BlockMap[A][i].position.x - Obj.transform.size.x - 1;
+
+		if (Obj.collider.d)
+			Obj.transform.position.y = level.BlockMap[A][i].position.y - level.BlockMap[A][i].size.y - 1;
+
+	}
+
+	if (B != A) {
+
+		for (int j = level.BlockMap[B].range() - 1; j > 0; j--) {
+
+			Obj.collider = checkCollision(Obj.transform, level.BlockMap[B][j]);
+
+			if (Obj.collider.a)
+				Obj.transform.position.x = level.BlockMap[B][j].position.x + level.BlockMap[B][j].size.x + 1;
+
+			if (Obj.collider.b)
+				Obj.transform.position.y = level.BlockMap[B][j].position.y + 1;
+
+			if (Obj.collider.c)
+				Obj.transform.position.x = level.BlockMap[B][j].position.x - Obj.transform.size.x - 1;
+
+			if (Obj.collider.d)
+				Obj.transform.position.y = level.BlockMap[B][j].position.y - level.BlockMap[B][j].size.y - 1;
 
 		}
 
 	}
-	*/
+
+	if (C != B && C != A) {
+
+		for (int k = level.BlockMap[C].range() - 1; k > 0; k--) {
+
+			Obj.collider = checkCollision(Obj.transform, level.BlockMap[C][k]);
+
+			if (Obj.collider.a)
+				Obj.transform.position.x = level.BlockMap[C][k].position.x + level.BlockMap[C][k].size.x + 1;
+
+			if (Obj.collider.b)
+				Obj.transform.position.y = level.BlockMap[C][k].position.y + 1;
+
+			if (Obj.collider.c)
+				Obj.transform.position.x = level.BlockMap[C][k].position.x - Obj.transform.size.x - 1;
+
+			if (Obj.collider.d)
+				Obj.transform.position.y = level.BlockMap[C][k].position.y - level.BlockMap[C][k].size.y - 1;
+
+		}
+
+	}
+
+	if (D != B && D != A && D != C) {
+
+		for (int l = level.BlockMap[D].range() - 1; l > 0; l--) {
+
+			Obj.collider = checkCollision(Obj.transform, level.BlockMap[D][l]);
+
+			if (Obj.collider.a)
+				Obj.transform.position.x = level.BlockMap[D][l].position.x + level.BlockMap[D][l].size.x + 1;
+
+			if (Obj.collider.b)
+				Obj.transform.position.y = level.BlockMap[D][l].position.y + 1;
+
+			if (Obj.collider.c)
+				Obj.transform.position.x = level.BlockMap[D][l].position.x - Obj.transform.size.x - 1;
+
+			if (Obj.collider.d)
+				Obj.transform.position.y = level.BlockMap[D][l].position.y - level.BlockMap[D][l].size.y - 1;
+
+		}
+
+	}
 
 	return Obj;
 
