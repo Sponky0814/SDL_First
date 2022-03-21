@@ -27,7 +27,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetCrystal();
+				Block.texture = textures.GetTexture("crystal");
 				Draw(Block, renderer, Resolution);
 
 			}
@@ -40,7 +40,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetRed();
+				Block.texture = textures.GetTexture("red");
 				Draw(Block, renderer, Resolution);
 
 			}
@@ -51,7 +51,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetGreen();
+				Block.texture = textures.GetTexture("green");
 				Draw(Block, renderer, Resolution);
 
 			}
@@ -64,7 +64,7 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetBlue();
+				Block.texture = textures.GetTexture("blue");
 				Draw(Block, renderer, Resolution);
 
 			}
@@ -83,30 +83,3 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 	}
 
 }
-
-/*
-int* LoadLevel(const char* path, int resX, int resY) {
-
-	std::fstream fStream;
-	fStream.open(path);
-	char cell;
-	int* intArray = new int[resX * resY];
-
-	for (int y = 0; y < resY; y++) {
-
-		for (int y = 0; y < resX; y++) {
-
-			fStream.get(cell);
-			intArray[y * resY + resX] = atoi(&cell);
-			fStream.ignore();
-
-		}
-
-	}
-
-	fStream.close();
-
-	return intArray;
-
-}
-*/

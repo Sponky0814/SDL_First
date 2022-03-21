@@ -3,6 +3,7 @@
 #include "PhysicsClasses.h"
 #include "Log.h"
 #include "Mmath.h"
+#include "RenderingClasses.h"
 
 //Stores the transform and (int)type(Used for picking textures and properties)
 class Cell {
@@ -39,8 +40,13 @@ public:
 
 	~Level() {}
 
-	Level(int* TileMap, const int& resX, const int& resY) { 
-			
+	Level(int* TileMap, const int& resX, const int& resY, SDL_Renderer* renderer) { 
+		
+		Textures::AddTexture("1", "Images/Rock.png", renderer);
+		Textures::AddTexture("2", "Images/Red.png", renderer);
+		Textures::AddTexture("3", "Images/Green.png", renderer);
+		Textures::AddTexture("4", "Images/Blue.png", renderer);
+
 		Transform Block;
 
 		Block.size.x = 60;
@@ -59,7 +65,7 @@ public:
 
 				switch (TileMap[row * resX + column]) {
 
-				case 1:
+				case 1: case 2: case 3: case 4:
 
 					Block.position.x = Block.size.x * column;
 
@@ -84,118 +90,7 @@ public:
 					cellInsert.cellTransform.position.y = Block.position.y;
 					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
 					cellInsert.cellTransform.size.y = Block.size.y;
-					cellInsert.type = 1;
-
-					cellArray.insert(cellInsert);
-
-					for (int i = 0; i <= ceil(Len * 60 / 128); i++) {
-
-						BlockMap[(int)(ceil(cellInsert.cellTransform.position.x) / 128 + 32 * ceil(cellInsert.cellTransform.position.y / 128) + i)].insert(cellInsert.cellTransform);
-
-					}
-
-					break;
-
-				case 2:
-
-					Block.position.x = Block.size.x * column;
-
-					while (true) {
-
-						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
-
-							xMultiplyer++;
-							column++;
-							Len++;
-
-						}
-						else {
-
-							break;
-
-						}
-
-					}
-
-					cellInsert.cellTransform.position.x = Block.position.x;
-					cellInsert.cellTransform.position.y = Block.position.y;
-					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
-					cellInsert.cellTransform.size.y = Block.size.y;
-					cellInsert.type = 2;
-
-					cellArray.insert(cellInsert);
-
-					for (int i = 0; i <= ceil(Len * 60 / 128); i++) {
-
-						BlockMap[(int)(ceil(cellInsert.cellTransform.position.x) / 128 + 32 * ceil(cellInsert.cellTransform.position.y / 128) + i)].insert(cellInsert.cellTransform);
-
-					}
-
-					break;
-
-				case 3:
-
-					Block.position.x = Block.size.x * column;
-
-					while (true) {
-
-						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
-
-							xMultiplyer++;
-							column++;
-							Len++;
-
-						}
-						else {
-
-							break;
-
-						}
-
-					}
-
-					cellInsert.cellTransform.position.x = Block.position.x;
-					cellInsert.cellTransform.position.y = Block.position.y;
-					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
-					cellInsert.cellTransform.size.y = Block.size.y;
-					cellInsert.type = 3;
-
-					cellArray.insert(cellInsert);
-
-					for (int i = 0; i <= ceil(Len * 60 / 128); i++) {
-
-						BlockMap[(int)(ceil(cellInsert.cellTransform.position.x) / 128 + 32 * ceil(cellInsert.cellTransform.position.y / 128) + i)].insert(cellInsert.cellTransform);
-
-					}
-
-					break;
-
-				case 4:
-
-					Block.position.x = Block.size.x * column;
-
-					while (true) {
-
-						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
-
-							xMultiplyer++;
-							column++;
-							Len++;
-
-						}
-						else {
-
-							break;
-
-						}
-
-					}
-
-					cellInsert.cellTransform.position.x = Block.position.x;
-					cellInsert.cellTransform.position.y = Block.position.y;
-					cellInsert.cellTransform.size.x = Block.size.x * xMultiplyer;
-					cellInsert.cellTransform.size.y = Block.size.y;
-					cellInsert.type = 4;
+					cellInsert.type = TileMap[row * resX + column + 1];
 
 					cellArray.insert(cellInsert);
 

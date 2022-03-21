@@ -4,40 +4,84 @@
 
 extern SDL_Renderer* renderer;
 
+struct Texture {
+
+	const char* name = "";
+	SDL_Texture* Img;
+
+};
+
 //Singleton that returns textures
 class Textures {
 
-	public:
+private:
 
-		Textures(const Textures&) = delete;
+	static FreeArray<Texture> TextureArray;
 
-		static Textures& Get() {
+	Textures(const Textures&) = delete;
 
-			static Textures instance;
-			return instance;
+	Textures() {}
+
+public:
+
+
+	static Textures& Get() {
+
+		static Textures instance;
+		return instance;
+
+	}
+
+	static void AddTexture(const char* name, const char* path, SDL_Renderer* Renderer) {
+
+		SDL_Surface* LoadedSurface = IMG_Load(path);
+
+		SDL_Texture* loadingTexture;
+
+		loadingTexture = SDL_CreateTextureFromSurface(Renderer, LoadedSurface);
+		
+		Texture texture { name, loadingTexture };
+
+		SDL_FreeSurface(LoadedSurface);
+
+		if (loadingTexture == nullptr) {
+			Error(SDL_GetError(), false);
+		}
+
+		for (int i = 0; i < TextureArray.range(); i++) {
+
+			if (TextureArray[i].name == name) {
+
+				Error("A texture with the same name already exists", 0);
+
+				return;
+
+			}
 
 		}
 
-		SDL_Texture* GetCrystal() { return crystal; }
-		SDL_Texture* GetBlue() { return blue; }
-		SDL_Texture* GetRed() { return red; }
-		SDL_Texture* GetGreen() { return green; }
+		TextureArray.insert(texture);
 
-	private:
+		return;
 
-		SDL_Texture* crystal;
-		SDL_Texture* red;
-		SDL_Texture* blue;
-		SDL_Texture* green;
+	}
 
-		Textures() {
+	static SDL_Texture* GetTexture(const char* name) {
 
-			crystal = LoadTexture("Images/Rock.png", renderer);
-			red = LoadTexture("Images/Red.png", renderer);
-			green = LoadTexture("Images/Green.png", renderer);
-			blue = LoadTexture("Images/Blue.png", renderer);
+		for (int i = 0; i < TextureArray.range(); i++) {
+
+			if (TextureArray[i].name == name) {
+
+				return TextureArray[i].Img;
+
+			}
 
 		}
 
+		Error("Couldn't find texture", 1);
+
+		return *new SDL_Texture*;
+
+	}
 
 };
