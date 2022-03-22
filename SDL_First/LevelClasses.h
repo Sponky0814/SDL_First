@@ -42,10 +42,10 @@ public:
 
 	Level(int* TileMap, const int& resX, const int& resY, SDL_Renderer* renderer) { 
 		
-		Textures::AddTexture("1", "Images/Rock.png", renderer);
-		Textures::AddTexture("2", "Images/Red.png", renderer);
-		Textures::AddTexture("3", "Images/Green.png", renderer);
-		Textures::AddTexture("4", "Images/Blue.png", renderer);
+		Textures::AddTexture("crystal", "Images/Rock.png", renderer);
+		Textures::AddTexture("red", "Images/Red.png", renderer);
+		Textures::AddTexture("green", "Images/Green.png", renderer);
+		Textures::AddTexture("blue", "Images/Blue.png", renderer);
 
 		Transform Block;
 
@@ -71,7 +71,7 @@ public:
 
 					while(true) {
 
-						if (TileMap[row * resX + column + 1] == 1 && column + 1 != resX) {
+						if (TileMap[row * resX + column + 1] == TileMap[row * resX + column] && column + 1 != resX) {
 
 							xMultiplyer++;
 							column++;

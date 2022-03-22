@@ -2,8 +2,6 @@
 #include "PhysicsClasses.h"
 #include <SDL.h>
 
-extern SDL_Renderer* renderer;
-
 struct Texture {
 
 	const char* name = "";
@@ -32,7 +30,7 @@ public:
 
 	}
 
-	static void AddTexture(const char* name, const char* path, SDL_Renderer* Renderer) {
+	static void AddTexture(const char* name, const char* path, SDL_Renderer* renderer) {
 
 		SDL_Surface* LoadedSurface = IMG_Load(path);
 
