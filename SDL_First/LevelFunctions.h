@@ -8,9 +8,9 @@
 #include <iostream>
 
 //Draws a level on the screen
-void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Textures& textures) {
+void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution) {
 
-	gameObject Block;
+	static gameObject Block;
 	Block.transform.size.x = 60;
 	Block.transform.size.y = 60;
 
@@ -25,9 +25,9 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 				
 			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
 
-				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + 60 * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetTexture("crystal");
+				Block.texture = Textures::GetTexture("crystal");
 				Draw(Block, renderer, Resolution);
 
 			}
@@ -38,9 +38,9 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
 
-				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + 60 * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetTexture("red");
+				Block.texture = Textures::GetTexture("red");
 				Draw(Block, renderer, Resolution);
 
 			}
@@ -49,9 +49,9 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
 
-				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + 60 * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetTexture("green");
+				Block.texture = Textures::GetTexture("green");
 				Draw(Block, renderer, Resolution);
 
 			}
@@ -62,9 +62,9 @@ void DrawLevel(Level level, SDL_Renderer* renderer, SDL_Rect Resolution, Texture
 
 			for (int j = 0; j != level.cellArray[i].cellTransform.size.x / 60; j++) {
 
-				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + Block.transform.size.x * j;
+				Block.transform.position.x = level.cellArray[i].cellTransform.position.x + 60 * j;
 				Block.transform.position.y = level.cellArray[i].cellTransform.position.y;
-				Block.texture = textures.GetTexture("blue");
+				Block.texture = Textures::GetTexture("blue");
 				Draw(Block, renderer, Resolution);
 
 			}

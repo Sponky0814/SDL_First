@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL_image.h>
 #include "Mmath.h"
-#include "Rendering.h"
 #include "Log.h"
 
 //Stores stores two Vector2s used for storing position and size
@@ -45,17 +44,14 @@ class gameObject {
 
 		gameObject() {}
 
-		gameObject(const char* NAME, Vector2<float> SIZE, const char* TEXTURE, SDL_Renderer* renderer) {
+		void operator=(const gameObject& other) {
 
-			name = NAME;
-			texture = LoadTexture(TEXTURE, renderer);
-			transform.size = SIZE;
+			this->transform = other.transform;
+			this->collider = other.collider;
+			this->texture = other.texture;
+			this->velocity = other.velocity;
 
-		}
-
-		gameObject operator=(const gameObject& other) const {
-
-			return other;
+			return;
 
 		}
 

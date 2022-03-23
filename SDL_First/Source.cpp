@@ -39,7 +39,7 @@ Level* Level1 = new Level(new int[576] {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -155,20 +155,11 @@ void Update() {
 		Player.transform.position.y += (int)Player.velocity.y * 2;
 
 		//Renders texure on screen
-		//Player = GetCollisions(Player, *Level1);
-
-		if (Player.transform.position.y + Player.transform.size.y > 1020) {
-
-			Player.transform.position.y = 924.1f;
-			Player.collider.b = true;
-
-		}
-		else
-			Player.collider.b = false;
+		Player = GetCollisions(Player, *Level1);
 
 		SDL_RenderClear(renderer);
 
-		DrawLevel(*Level1, renderer, Screen, Textures::Get());
+		DrawLevel(*Level1, renderer, Screen);
 		Draw(Player, renderer, Screen);
 
 		SDL_RenderPresent(renderer);
@@ -203,11 +194,10 @@ int main(int argc, char* argv[]) {
 	//Set Backround color to black
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-	Player.transform.size.x = 96;
-	Player.transform.size.y = 96;
-	Player.transform.position.x = 487;
-	Player.transform.position.y = 700;
-	Player.texture = LoadTexture("Images/Player.png", renderer);
+	Textures::AddTexture("Player", "Images/Player.png", renderer);
+
+	Player.transform = *new Transform(500, 500, 96, 96);
+	Player.texture = Textures::GetTexture("Player");
 
 	Update();
 

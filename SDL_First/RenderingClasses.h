@@ -16,7 +16,7 @@ class Textures {
 
 private:
 
-	static FreeArray<Texture> TextureArray;
+	inline static FreeArray<Texture> TextureArray = FreeArray<Texture>();
 
 	Textures(const Textures&) = delete;
 

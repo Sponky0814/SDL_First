@@ -24,9 +24,6 @@
     <ClInclude Include="LevelClasses.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering.h">
-      <Filter>HeaderFiles</Filter>
-    </ClInclude>
     <ClInclude Include="RenderingClasses.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>

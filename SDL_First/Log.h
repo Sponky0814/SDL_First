@@ -33,7 +33,7 @@ void Error(const char* Log, bool CheckErrorCache) {
 	}
 
 	std::cout << "Error: " << Log << "\n";										
-	ErrorCache.insert(Log);														//Inserts error message intp the error cache
+	ErrorCache.insert(Log);														//Inserts error message into the error cache
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);				//Changes colour of text to white
 #endif

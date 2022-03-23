@@ -23,9 +23,12 @@ class Vector2 {
 
 		~Vector2() {}
 
-		Vector2 operator=(const Vector2<T>& other) const {
+		void operator=(const Vector2<T>& other) {
 
-			return other;
+			this->x = other.x;
+			this->y = other.y;
+
+			return;
 
 		}
 
@@ -47,15 +50,20 @@ class Vector4 {
 public:
 	T a, b, c, d;
 
-	Vector4() {}
+	Vector4() { a = false; b = false; c = false; d = false; }
 
 	Vector4(T A, T B, T C, T D) {
 		a = A; b = B; c = C; d = D;
 	}
 
-	Vector4 operator=(const Vector4& other) const {
+	void operator=(const Vector4& other) {
 
-		return other;
+		this->a = other.a;
+		this->b = other.b;
+		this->c = other.c;
+		this->d = other.d;
+
+		return;
 
 	}
 
